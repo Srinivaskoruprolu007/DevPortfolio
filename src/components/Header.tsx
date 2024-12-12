@@ -57,7 +57,6 @@ export function Header() {
             </SheetTrigger>
           </div>
           <SheetContent
-            position="left"
             className="p-4 bg-background rounded-r-lg md:hidden"
           >
             <div className="flex flex-col gap-4 mt-8">
