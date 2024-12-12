@@ -53,14 +53,14 @@ export const projects = [
     demo: "https://happy-happenings-xom2.vercel.app/",
   },
   {
-    title: "Customer Segmentation Tool",
+    title: "House Price Prediction Model",
     description:
-      "Developed a machine learning model for customer segmentation using Python and scikit-learn, with a React frontend for visualization.",
-    tags: ["Python", "React", "Machine Learning", "SQL"],
+      "This project predicts Bengaluru house prices using a Linear Regression model. The dataset includes features like location, size, bedrooms, bathrooms, and square footage to estimate prices accurately.",
+    tags: ["Python","Machine Learning", "SQL"],
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-    github: "https://github.com/yourusername/customer-segmentation",
-    demo: "https://customer-segmentation-demo.netlify.app",
+    github: "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model",
+    demo: "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model/blob/master/Code/ML-Model.ipynb",
   },
   {
     title: "Sales Prediction Platform",
