@@ -1,4 +1,5 @@
 import HappyHappenings from "../Assets/HappyHappenings.png";
+import TargetSales from "../Assets/TargetSales.jpg"
 
 export const skills = {
   frontend: [
@@ -68,8 +69,7 @@ export const projects = [
     description:
       "This Case study is about predicting the sales of a retail store chain. The dataset includes features like store size, location, and historical sales data to get sales insights and recommendations.",
     tags: ["SQL", "Google big Query", "Google Docs", "ER Diagrams"],
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+    image: TargetSales,
     github: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study",
     demo: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study/blob/main/Case_Study.pdf",
   },
