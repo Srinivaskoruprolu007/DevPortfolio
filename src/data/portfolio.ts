@@ -56,20 +56,21 @@ export const projects = [
     title: "House Price Prediction Model",
     description:
       "This project predicts Bengaluru house prices using a Linear Regression model. The dataset includes features like location, size, bedrooms, bathrooms, and square footage to estimate prices accurately.",
-    tags: ["Python","Machine Learning", "SQL"],
+    tags: ["Python", "Machine Learning", "SQL"],
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-    github: "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model",
+    github:
+      "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model",
     demo: "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model/blob/master/Code/ML-Model.ipynb",
   },
   {
-    title: "Sales Prediction Platform",
+    title: "Target Sales Analysis",
     description:
-      "Created a full-stack application for sales forecasting using time series analysis and machine learning algorithms.",
-    tags: ["Python", "React", "TypeScript", "AWS"],
+      "This Case study is about predicting the sales of a retail store chain. The dataset includes features like store size, location, and historical sales data to get sales insights and recommendations.",
+    tags: ["SQL", "Google big Query", "Google Docs", "ER Diagrams"],
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-    github: "https://github.com/yourusername/sales-prediction",
-    demo: "https://sales-prediction-demo.netlify.app",
+    github: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study",
+    demo: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study/blob/main/Case_Study.pdf",
   },
 ];
