@@ -1,5 +1,6 @@
 import HappyHappenings from "../Assets/HappyHappenings.png";
 import TargetSales from "../Assets/TargetSales.jpg";
+import Weatherly from "../Assets/Weatherly.png";
 
 export const skills = {
   frontend: [
@@ -78,7 +79,7 @@ export const projects = [
     description:
       "Weatherly is a weather app that provides real-time weather information and forecasts for a specific location.",
     tags: ["React", "Tailwindcss", "HTML", "JavaScript", "API"],
-    image: "./Assets/Weatherly.png",
+    image: Weatherly,
     github: "https://github.com/Srinivaskoruprolu007/Weatherly",
     demo: "https://weatherly-pearl-tau.vercel.app/",
   },
