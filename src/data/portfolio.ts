@@ -1,5 +1,5 @@
 import HappyHappenings from "../Assets/HappyHappenings.png";
-import TargetSales from "../Assets/TargetSales.jpg"
+import TargetSales from "../Assets/TargetSales.jpg";
 
 export const skills = {
   frontend: [
@@ -72,5 +72,14 @@ export const projects = [
     image: TargetSales,
     github: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study",
     demo: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study/blob/main/Case_Study.pdf",
+  },
+  {
+    title: "Weatherly",
+    description:
+      "Weatherly is a weather app that provides real-time weather information and forecasts for a specific location.",
+    tags: ["React", "Tailwindcss", "HTML", "JavaScript", "API"],
+    image: "./Assets/Weatherly.png",
+    github: "https://github.com/Srinivaskoruprolu007/Weatherly",
+    demo: "https://weatherly-pearl-tau.vercel.app/",
   },
 ];
