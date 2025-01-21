@@ -1,6 +1,7 @@
 import HappyHappenings from "../Assets/HappyHappenings.png";
 import TargetSales from "../Assets/TargetSales.jpg";
 import Weatherly from "../Assets/Weatherly.png";
+import AuthApp from "../Assets/AuthApp.png";
 
 export const skills = {
   frontend: [
@@ -82,5 +83,14 @@ export const projects = [
     image: Weatherly,
     github: "https://github.com/Srinivaskoruprolu007/Weatherly",
     demo: "https://weatherly-pearl-tau.vercel.app/",
+  },
+  {
+    title: "Full Authentication Using NextJS",
+    description:
+      "This project is a full authentication system using NextJS, which includes features like login, signup, and protected routes and email verification.",
+    tags: ["NextJS", "Tailwindcss", "HTML", "JavaScript", "API"],
+    image: AuthApp,
+    github: "https://github.com/Srinivaskoruprolu007/fullauthnext",
+    demo: "https://fullauthnext-rho.vercel.app/",
   },
 ];
