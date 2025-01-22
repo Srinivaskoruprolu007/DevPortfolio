@@ -13,6 +13,7 @@ export const skills = {
   Backend: [
     { name: ".Net", level: 70 },
     { name: "Flask", level: 50 },
+{name : "Next.js",level : 75},
   ],
   dataAnalysis: [
     { name: "Python", level: 85 },
