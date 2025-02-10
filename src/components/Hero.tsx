@@ -36,7 +36,7 @@ export function Hero() {
               className="flex flex-wrap justify-center md:justify-start gap-4 mb-12"
             >
               <Button asChild>
-                <Link to="contact" spy={true} smooth={true} offset={-64} duration={500}>
+                <Link to="contact" spy={true} smooth={true} offset={-64} duration={500} className='cursor-pointer'>
                   Contact Me
                 </Link>
               </Button>
