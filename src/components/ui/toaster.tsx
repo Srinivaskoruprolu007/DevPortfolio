@@ -1,4 +1,5 @@
-import { useToast } from '@/hooks/use-toast';
+// import { useToast } from '@/hooks/use-toast'; // Remove old hook import
+import { useToastStore } from "@/store/toastStore"; // Import Zustand store hook
 import {
   Toast,
   ToastClose,
@@ -6,10 +7,11 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@/components/ui/toast';
+} from "@/components/ui/toast";
 
 export function Toaster() {
-  const { toasts } = useToast();
+  // const { toasts } = useToast(); // Remove old hook usage
+  const toasts = useToastStore((state) => state.toasts); // Use Zustand store state
 
   return (
     <ToastProvider>

@@ -1,9 +1,9 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/store/toastStore"; 
 import {
   Form,
   FormControl,
@@ -11,18 +11,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { contactFormSchema, type ContactFormValues } from '@/lib/validations/contact';
-import { sendEmail } from '@/lib/email';
+} from "@/components/ui/form";
+import {
+  contactFormSchema,
+  type ContactFormValues,
+} from "@/lib/validations/contact";
+import { sendEmail } from "@/lib/email";
 
 export function ContactForm() {
   const { toast } = useToast();
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      message: '',
+      name: "",
+      email: "",
+      message: "",
     },
   });
 
@@ -30,15 +33,15 @@ export function ContactForm() {
     try {
       await sendEmail(data);
       toast({
-        title: 'Message sent!',
+        title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
       form.reset();
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'Something went wrong. Please try again later.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
       });
     }
   };
