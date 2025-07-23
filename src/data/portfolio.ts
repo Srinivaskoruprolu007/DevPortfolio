@@ -2,6 +2,7 @@ import HappyHappenings from "../Assets/HappyHappenings.png";
 import TargetSales from "../Assets/TargetSales.jpg";
 import Weatherly from "../Assets/Weatherly.png";
 import AuthApp from "../Assets/AuthApp.png";
+import CVAI from "../Assets/CVAI.png";
 
 export const skills = {
   frontend: [
@@ -13,7 +14,7 @@ export const skills = {
   Backend: [
     { name: ".Net", level: 70 },
     { name: "Flask", level: 50 },
-{name : "Next.js",level : 75},
+    { name: "Next.js", level: 75 },
   ],
   dataAnalysis: [
     { name: "Python", level: 85 },
@@ -75,6 +76,22 @@ export const projects = [
     image: TargetSales,
     github: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study",
     demo: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study/blob/main/Case_Study.pdf",
+  },
+  {
+    title: "CVAI",
+    description:
+      "CVAI is a modern, full-stack web application that leverages AI to analyze resumes and provide actionable feedback for job seekers. Built with React Router, Tailwind CSS, and Puter.js APIs, it offers a seamless experience for uploading, analyzing, and tracking resume submissions.",
+    tags: [
+      "React",
+      "Tailwindcss",
+      "HTML",
+      "Typescript",
+      "Puter.js",
+      "React-Router-v7",
+    ],
+    image: CVAI,
+    github: "https://github.com/Srinivaskoruprolu007/CVAI",
+    demo: "https://cvai-phi.vercel.app/",
   },
   {
     title: "Weatherly",
