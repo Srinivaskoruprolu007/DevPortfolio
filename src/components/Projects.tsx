@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { projects } from '@/data/portfolio';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink } from 'lucide-react';
+import { useFetchProjects } from '@/hooks/use-contentful-data-fetch';
 
 export function Projects() {
+  const { projects, loading, error } = useFetchProjects();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -22,6 +23,9 @@ export function Projects() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl font-bold mb-12 text-center">Projects</h2>
+
+          {loading && <p className="text-center">Loading projects...</p>}
+          {error && <p className="text-center text-red-500">Error loading projects: {error.message}</p>}
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
@@ -44,24 +48,29 @@ export function Projects() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
+
+                    {/* Optional tags section, only if you have it in the model */}
+                    {/* Remove or replace with another field if needed */}
+                    {project.tags && (
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </CardContent>
                   <CardFooter className="mt-auto pt-4">
                     <div className="flex gap-4">
                       <Button asChild variant="outline" size="sm">
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
                           <Github className="mr-2 h-4 w-4" />
                           Code
                         </a>
                       </Button>
                       <Button asChild size="sm">
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                        <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="mr-2 h-4 w-4" />
                           Demo
                         </a>
