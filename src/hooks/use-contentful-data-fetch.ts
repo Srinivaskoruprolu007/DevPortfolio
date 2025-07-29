@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Project } from '@/types/project';
-import client from '@/lib/contentful';
+import { useEffect, useState } from "react";
+import { Project } from "@/types/project";
+import client from "@/lib/contentful";
 
 export const useFetchProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -11,14 +11,16 @@ export const useFetchProjects = () => {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const response = await client.getEntries({ content_type: 'project' });
-        
+        const response = await client.getEntries({ content_type: "project" });
+        console.log("Fetched projects:", response.items);
+
         const items = response.items.map((item: any) => ({
           title: item.fields.title,
           description: item.fields.description,
           demoLink: item.fields.demoLink,
           githubLink: item.fields.githubLink,
-          image: item.fields.image?.fields?.file?.url || '',
+          image: item.fields.image?.fields?.file?.url || "",
+          tags: item.fields.tags || [],
         }));
 
         setProjects(items);

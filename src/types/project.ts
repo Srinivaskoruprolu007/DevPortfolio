@@ -3,6 +3,7 @@ export type Project = {
   description: string;
   demoLink: string;
   githubLink: string;
+  tags?: string[];
   image: {
     metadata: {
       tags: { sys: { id: string; type: string } }[];
