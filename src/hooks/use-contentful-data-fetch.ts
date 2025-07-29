@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Project } from "@/types/project";
 import client from "@/lib/contentful";
+
 
 export const useFetchProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -12,7 +14,7 @@ export const useFetchProjects = () => {
       setLoading(true);
       try {
         const response = await client.getEntries({ content_type: "project" });
-        console.log("Fetched projects:", response.items);
+
 
         const items = response.items.map((item: any) => ({
           title: item.fields.title,
