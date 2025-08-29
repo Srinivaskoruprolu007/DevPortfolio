@@ -1,3 +1,4 @@
+import { EntryFields } from "contentful";
 export type Project = {
   title: string;
   description: string;
@@ -27,5 +28,17 @@ export type Project = {
       };
       title: string;
     };
+  };
+};
+
+export type ProjectSkeleton = {
+  contentTypeId: "project";
+  fields: {
+    title: string ;
+    description: EntryFields.Text;
+    demoLink: EntryFields.Text;
+    githubLink: EntryFields.Text;
+    tags?: EntryFields.Array<string>;
+    image?: EntryFields.AssetLink;
   };
 };

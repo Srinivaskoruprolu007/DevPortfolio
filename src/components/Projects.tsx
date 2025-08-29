@@ -42,7 +42,7 @@ export function Projects() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
               <motion.div
-                key={project.title}
+                key={project.fields.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -51,23 +51,23 @@ export function Projects() {
                   <CardHeader>
                     <div className="aspect-video overflow-hidden rounded-lg mb-4">
                       <img
-                        src={project.image.fields.file.url}
-                        alt={project.title}
+                        src={project.fields.image?.fields.file?.url as string || ""}
+                        alt={project.fields.title}
                         className="w-full h-full object-cover transition-transform hover:scale-105"
                       />
                     </div>
-                    <CardTitle>{project.title}</CardTitle>
+                    <CardTitle>{project.fields.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground mb-4">
-                      {project.description}
+                      {project.fields.description}
                     </p>
 
                     {/* Optional tags section, only if you have it in the model */}
                     {/* Remove or replace with another field if needed */}
-                    {project.tags && (
+                    {project.fields.tags && (
                       <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
+                        {project.fields.tags.map((tag: string) => (
                           <Badge key={tag} variant="secondary">
                             {tag}
                           </Badge>
@@ -79,7 +79,7 @@ export function Projects() {
                     <div className="flex gap-4">
                       <Button asChild variant="outline" size="sm">
                         <a
-                          href={project.githubLink}
+                          href={project.fields.githubLink}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -89,7 +89,7 @@ export function Projects() {
                       </Button>
                       <Button asChild size="sm">
                         <a
-                          href={project.demoLink}
+                          href={project.fields.demoLink}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
