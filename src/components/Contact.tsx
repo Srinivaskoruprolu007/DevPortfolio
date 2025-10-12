@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { ContactForm } from './contact/contact-form';
-import { SectionHeading } from './contact/section-heading';
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { ContactForm } from "./contact/contact-form";
+import { SectionHeading } from "./contact/section-heading";
 
 export function Contact() {
   const [ref, inView] = useInView({
@@ -10,7 +10,11 @@ export function Contact() {
   });
 
   return (
-    <section id="contact" className="py-16">
+    <section
+      id="contact"
+      className="py-12 md:py-16"
+      aria-labelledby="contact-heading"
+    >
       <div className="container px-4">
         <motion.div
           ref={ref}

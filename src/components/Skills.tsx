@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { skills } from '@/data/portfolio';
-import { Progress } from '@/components/ui/progress';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { skills } from "@/data/portfolio";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 export function Skills() {
   const [ref, inView] = useInView({
@@ -11,7 +11,11 @@ export function Skills() {
   });
 
   return (
-    <section id="skills" className="py-16">
+    <section
+      id="skills"
+      className="py-12 md:py-16"
+      aria-labelledby="skills-heading"
+    >
       <div className="container px-4">
         <motion.div
           ref={ref}
@@ -19,9 +23,14 @@ export function Skills() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold mb-12 text-center">Skills</h2>
+          <h2
+            id="skills-heading"
+            className="text-2xl sm:text-3xl font-bold mb-8 md:mb-12 text-center"
+          >
+            Skills
+          </h2>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader>
                 <CardTitle>Frontend Development</CardTitle>
