@@ -16,7 +16,7 @@ export function Skills() {
       className="py-12 md:py-16"
       aria-labelledby="skills-heading"
     >
-      <div className="container px-4">
+      <div className="container px-4 max-w-6xl mx-auto">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}

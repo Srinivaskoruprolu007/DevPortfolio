@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "analyze": "npx vite-bundle-analyzer dist",
-    "lighthouse": "npx lighthouse http://localhost:4173 --output html --output-path ./lighthouse-report.html",
-    "audit:a11y": "npx @axe-core/cli http://localhost:4173",
+    "lighthouse": "npx lighthouse http://localhost:5173 --output html --output-path ./lighthouse-report.html",
+    "audit:a11y": "npx @axe-core/cli http://localhost:5173",
     "test:build": "npm run build && npm run preview"
   },
   "dependencies": {

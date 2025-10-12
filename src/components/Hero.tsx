@@ -24,9 +24,9 @@ export function Hero() {
       aria-labelledby="hero-heading"
       role="banner"
     >
-      <div className="container py-8 md:py-16">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="text-center md:text-left">
+      <div className="container py-8 md:py-16 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center justify-items-center">
+          <div className="text-center max-w-2xl mx-auto lg:mx-0">
             <motion.h1
               id="hero-heading"
               initial={{ opacity: 0, y: 20 }}
@@ -51,21 +51,28 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-3 sm:gap-4 mb-8 md:mb-12"
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-8 md:mb-12"
             >
               <TooltipProvider>
-                <Button asChild className="w-full sm:w-auto">
-                  <Link
-                    to="contact"
-                    spy={true}
-                    smooth={true}
-                    offset={-64}
-                    duration={500}
-                    className="cursor-pointer px-6 py-2.5"
-                  >
-                    Contact Me
-                  </Link>
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button asChild className="w-full sm:w-auto">
+                      <Link
+                        to="contact"
+                        spy={true}
+                        smooth={true}
+                        offset={-64}
+                        duration={500}
+                        className="cursor-pointer px-6 py-2.5"
+                      >
+                        Contact Me
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Get in touch for projects and collaborations</p>
+                  </TooltipContent>
+                </Tooltip>
 
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -178,7 +185,7 @@ export function Hero() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-first md:order-last">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-first lg:order-last max-w-2xl mx-auto">
             <div className="flex justify-center">
               <DataAnalystIllustration />
             </div>
