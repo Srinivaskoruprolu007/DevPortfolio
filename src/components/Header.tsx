@@ -1,9 +1,9 @@
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { motion } from "framer-motion";
+import gsap from "gsap";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-scroll";
 
 const navItems = [
@@ -15,30 +15,67 @@ const navItems = [
 
 export function Header() {
   const [activeSection, setActiveSection] = useState("hero");
+  const headerRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    // Slide down animation on mount
+    gsap.fromTo(
+      headerRef.current,
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
+    );
+
+    // Logo animation
+    if (logoRef.current) {
+      gsap.fromTo(
+        logoRef.current,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.6, delay: 0.2, ease: "power3.out" }
+      );
+    }
+
+    // Header background on scroll
+    const handleScroll = () => {
+      if (headerRef.current) {
+        const scrolled = window.scrollY > 50;
+        gsap.to(headerRef.current, {
+          backdropFilter: scrolled ? "blur(16px)" : "blur(10px)",
+          backgroundColor: scrolled
+            ? "rgba(0, 0, 0, 0.3)"
+            : "rgba(0, 0, 0, 0.1)",
+          duration: 0.3,
+        });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b"
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 backdrop-blur-md"
       role="banner"
     >
       <nav
-        className="container mx-auto px-4 h-16 flex items-center justify-between"
+        className="container mx-auto px-4 h-18 flex items-center justify-between"
         role="navigation"
         aria-label="Main navigation"
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-xl font-bold"
+        <div
+          ref={logoRef}
+          className="text-xl font-bold gradient-primary bg-clip-text text-transparent"
         >
           Srinivas Koruprolu
-        </motion.div>
+        </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          <ul className="flex items-center gap-6" role="menubar">
+        <div className="hidden md:flex items-center gap-8">
+          <ul className="flex items-center gap-2" role="menubar">
             {navItems.map((item) => (
               <li key={item.to} role="none">
                 <Link
@@ -48,32 +85,36 @@ export function Header() {
                   offset={-64}
                   duration={500}
                   onSetActive={() => setActiveSection(item.to)}
-                  className={`cursor-pointer transition-colors font-medium px-3 py-2 rounded-md ${
+                  className={`cursor-pointer transition-all duration-300 font-medium px-4 py-2 rounded-full relative overflow-hidden group ${
                     activeSection === item.to
-                      ? "text-primary bg-primary/10"
-                      : "hover:text-primary hover:bg-primary/5"
+                      ? "text-primary bg-primary/10 shadow-custom-md border border-primary/20"
+                      : "hover:text-primary hover:bg-primary/5 glass"
                   }`}
                   role="menuitem"
                   tabIndex={0}
                   aria-current={activeSection === item.to ? "page" : undefined}
                 >
-                  {item.name}
+                  <span className="relative z-10">{item.name}</span>
                 </Link>
               </li>
             ))}
           </ul>
-          <ThemeToggle />
+          <div className="glass p-2 rounded-full">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         <Sheet>
           <div className="flex items-center gap-4 md:hidden">
-            <ThemeToggle />
+            <div className="glass p-2 rounded-full">
+              <ThemeToggle />
+            </div>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-white"
+                className="glass hover:bg-primary/10 transition-all duration-300"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
               >
@@ -82,10 +123,15 @@ export function Header() {
             </SheetTrigger>
           </div>
           <SheetContent
-            className="p-4 bg-background rounded-r-lg md:hidden"
+            className="glass backdrop-blur-xl border-l border-white/10 md:hidden"
             aria-label="Mobile navigation menu"
           >
-            <nav className="flex flex-col gap-4 mt-8" role="navigation">
+            <nav className="flex flex-col gap-6 mt-12" role="navigation">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+                  Navigation
+                </h3>
+              </div>
               {navItems.map((item) => (
                 <Link
                   key={item.to}
@@ -95,21 +141,29 @@ export function Header() {
                   offset={-64}
                   duration={500}
                   onSetActive={() => setActiveSection(item.to)}
-                  className={`text-lg cursor-pointer transition-colors font-medium px-3 py-2 rounded-md ${
+                  className={`text-lg cursor-pointer transition-all duration-300 font-medium px-6 py-4 rounded-xl relative overflow-hidden ${
                     activeSection === item.to
-                      ? "text-primary bg-primary/10"
-                      : "hover:text-primary hover:bg-primary/5"
+                      ? "text-primary bg-primary/10 shadow-custom-md border border-primary/20"
+                      : "hover:text-primary hover:bg-primary/5 glass"
                   }`}
                   tabIndex={0}
                   aria-current={activeSection === item.to ? "page" : undefined}
                 >
-                  {item.name}
+                  <span className="flex items-center gap-3">
+                    <span className="text-2xl">
+                      {item.name === "About" && "👤"}
+                      {item.name === "Skills" && "💪"}
+                      {item.name === "Projects" && "🚀"}
+                      {item.name === "Contact" && "📧"}
+                    </span>
+                    {item.name}
+                  </span>
                 </Link>
               ))}
             </nav>
           </SheetContent>
         </Sheet>
       </nav>
-    </motion.header>
+    </header>
   );
 }

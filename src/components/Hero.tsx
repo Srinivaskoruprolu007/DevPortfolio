@@ -5,7 +5,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { motion } from "framer-motion";
+import {
+  useFadeInUp,
+  useRotateOnScroll,
+  useScaleIn,
+} from "@/hooks/use-gsap-animations";
 import {
   ChevronDown,
   Download,
@@ -18,58 +22,87 @@ import { DataAnalystIllustration } from "./illustrations/data-analyst";
 import { FrontendDevIllustration } from "./illustrations/frontend-dev";
 
 export function Hero() {
+  const badgeRef = useFadeInUp(0);
+  const headingRef = useFadeInUp(0.2);
+  const descRef = useFadeInUp(0.4);
+  const buttonsRef = useFadeInUp(0.6);
+  const linksRef = useFadeInUp(0.8);
+  const illustrationsRef = useScaleIn(0.4);
+  const scrollIndicatorRef = useFadeInUp(1);
+  const backgroundDecoRef = useRotateOnScroll(180);
+
   return (
     <section
-      className="min-h-screen flex items-center justify-center pt-16 px-4"
+      className="relative min-h-screen flex items-center justify-center pt-16 px-4 overflow-hidden animated-background"
       aria-labelledby="hero-heading"
       role="banner"
     >
-      <div className="container py-8 md:py-16 max-w-7xl mx-auto">
+      {/* Background decoration */}
+      <div ref={backgroundDecoRef} className="absolute inset-0 -z-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow animation-delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-secondary/5 rounded-full blur-3xl animate-float"></div>
+      </div>
+
+      <div className="container py-8 md:py-16 max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center justify-items-center">
-          <div className="text-center max-w-2xl mx-auto lg:mx-0">
-            <motion.h1
+          <div className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+            <div ref={badgeRef} className="mb-6">
+              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4 border border-primary/20">
+                👋 Welcome to my portfolio
+              </span>
+            </div>
+
+            <h1
+              ref={headingRef}
               id="hero-heading"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent"
             >
-              Data Analyst & Frontend Developer
-            </motion.h1>
+              Data Analyst &{" "}
+              <span className="block gradient-primary bg-clip-text text-transparent">
+                Frontend Developer
+              </span>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg sm:text-xl text-muted-foreground mb-6 md:mb-8 leading-relaxed"
+            <p
+              ref={descRef}
+              className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed font-light"
             >
-              Transforming data into insights and creating beautiful web
-              experiences
-            </motion.p>
+              Transforming{" "}
+              <span className="text-primary font-semibold">
+                data into insights
+              </span>{" "}
+              and creating{" "}
+              <span className="text-primary font-semibold">
+                beautiful web experiences
+              </span>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-8 md:mb-12"
+            <div
+              ref={buttonsRef}
+              className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 mb-12"
             >
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button asChild className="w-full sm:w-auto">
+                    <Button
+                      asChild
+                      size="lg"
+                      className="btn-gradient shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 transform hover:scale-105"
+                    >
                       <Link
                         to="contact"
                         spy={true}
                         smooth={true}
                         offset={-64}
                         duration={500}
-                        className="cursor-pointer px-6 py-2.5"
+                        className="cursor-pointer px-8 py-3 text-lg font-semibold"
                       >
-                        Contact Me
+                        Let's Connect ✨
                       </Link>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent side="bottom" className="glass">
                     <p>Get in touch for projects and collaborations</p>
                   </TooltipContent>
                 </Tooltip>
@@ -78,133 +111,147 @@ export function Hero() {
                   <TooltipTrigger asChild>
                     <Button
                       variant="outline"
+                      size="lg"
                       asChild
-                      className="w-full sm:w-auto"
+                      className="glass hover:bg-primary/10 transition-all duration-300 transform hover:scale-105 shadow-custom-md hover:shadow-custom-lg"
                     >
                       <a
                         href="https://github.com/Srinivaskoruprolu007"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit my GitHub profile"
-                        className="px-4 py-2.5"
+                        className="px-6 py-3 text-base font-medium"
                       >
-                        <Github className="mr-2 h-4 w-4" aria-hidden="true" />
+                        <Github className="mr-2 h-5 w-5" aria-hidden="true" />
                         GitHub
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent side="bottom" className="glass">
                     <p>
                       View my code repositories and open source contributions
                     </p>
                   </TooltipContent>
                 </Tooltip>
+              </TooltipProvider>
+            </div>
 
+            <div
+              ref={linksRef}
+              className="flex flex-wrap justify-center lg:justify-start gap-3"
+            >
+              <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant="ghost"
+                      size="sm"
                       asChild
-                      className="w-full sm:w-auto"
+                      className="glass hover:bg-primary/10 transition-all duration-300"
                     >
                       <a
                         href="https://www.linkedin.com/in/srinivas-koruprolu/"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Connect with me on LinkedIn"
-                        className="px-4 py-2.5"
+                        className="px-4 py-2"
                       >
                         <Linkedin className="mr-2 h-4 w-4" aria-hidden="true" />
                         LinkedIn
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Connect with me professionally on LinkedIn</p>
+                  <TooltipContent side="bottom" className="glass">
+                    <p>Connect with me professionally</p>
                   </TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant="ghost"
+                      size="sm"
                       asChild
-                      className="bg-indigo-600 text-white hover:bg-indigo-700 w-full sm:w-auto"
+                      className="glass hover:bg-green-500/10 text-green-600 hover:text-green-700 transition-all duration-300"
                     >
                       <a
                         href="https://docs.google.com/document/d/1bfuztmRBf2ui-MKKQLHYhWwsxROIPbnE/edit?usp=sharing&ouid=103175391586875038607&rtpof=true&sd=true"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="View my resume online (Google Docs)"
-                        className="px-4 py-2.5 text-sm"
+                        aria-label="View my resume online"
+                        className="px-4 py-2"
                       >
                         <ExternalLink
                           className="mr-2 h-4 w-4"
                           aria-hidden="true"
                         />
-                        <span className="hidden sm:inline">
-                          View Resume (Online)
-                        </span>
-                        <span className="sm:hidden">View Resume</span>
+                        <span className="hidden sm:inline">View Resume</span>
+                        <span className="sm:hidden">Resume</span>
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>View my resume online in Google Docs format</p>
+                  <TooltipContent side="bottom" className="glass">
+                    <p>View my resume online</p>
                   </TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant="ghost"
+                      size="sm"
                       asChild
-                      className="bg-green-600 text-white hover:bg-green-700 w-full sm:w-auto"
+                      className="glass hover:bg-blue-500/10 text-blue-600 hover:text-blue-700 transition-all duration-300"
                     >
                       <a
                         href="https://docs.google.com/document/d/1bfuztmRBf2ui-MKKQLHYhWwsxROIPbnE/export?format=pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Download my resume as PDF file"
+                        aria-label="Download my resume as PDF"
                         download="Srinivas_Koruprolu_Resume.pdf"
-                        className="px-4 py-2.5 text-sm"
+                        className="px-4 py-2"
                       >
                         <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                        <span className="hidden sm:inline">
-                          Download Resume (PDF)
-                        </span>
-                        <span className="sm:hidden">Download PDF</span>
+                        <span className="hidden sm:inline">Download PDF</span>
+                        <span className="sm:hidden">PDF</span>
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Download my resume as a PDF file (≈ 200KB)</p>
+                  <TooltipContent side="bottom" className="glass">
+                    <p>Download resume as PDF (≈ 200KB)</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            </motion.div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-first lg:order-last max-w-2xl mx-auto">
-            <div className="flex justify-center">
-              <DataAnalystIllustration />
+          <div
+            ref={illustrationsRef}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6 order-first lg:order-last max-w-2xl mx-auto"
+          >
+            <div className="flex justify-center group">
+              <div className="glass p-6 rounded-2xl shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 hover:scale-105 hover:rotate-2">
+                <DataAnalystIllustration />
+              </div>
             </div>
-            <div className="flex justify-center">
-              <FrontendDevIllustration />
+            <div className="flex justify-center group">
+              <div className="glass p-6 rounded-2xl shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 hover:scale-105 hover:-rotate-2">
+                <FrontendDevIllustration />
+              </div>
             </div>
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="flex justify-center mt-6 md:mt-8 animate-bounce"
+        <div
+          ref={scrollIndicatorRef}
+          className="flex justify-center mt-16 animate-bounce-slow"
         >
           <Link to="about" spy={true} smooth={true} offset={-64} duration={500}>
-            <ChevronDown className="h-6 w-6 md:h-8 md:w-8 cursor-pointer hover:text-primary transition-colors" />
+            <div className="glass p-3 rounded-full hover:bg-primary/10 transition-all duration-300 cursor-pointer group">
+              <ChevronDown className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-primary/80 transition-colors" />
+            </div>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
