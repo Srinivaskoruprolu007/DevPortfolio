@@ -1,4 +1,16 @@
 import { EntryFields } from "contentful";
+
+export type LocalProject = {
+  title: string;
+  description: string;
+  achievements: string[];
+  tags: string[];
+  image: string;
+  imageAlt: string;
+  github: string;
+  demo: string;
+};
+
 export type Project = {
   title: string;
   description: string;
@@ -34,11 +46,12 @@ export type Project = {
 export type ProjectSkeleton = {
   contentTypeId: "project";
   fields: {
-    title: string ;
+    title: EntryFields.Text;
     description: EntryFields.Text;
     demoLink: EntryFields.Text;
     githubLink: EntryFields.Text;
-    tags?: EntryFields.Array<string>;
+    tags?: string[];
+    achievements?: string[];
     image?: EntryFields.AssetLink;
   };
 };

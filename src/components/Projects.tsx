@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/tooltip";
 import { projects } from "@/data/portfolio";
 import { useFetchProjects } from "@/hooks/use-contentful-data-fetch";
+import { LocalProject, ProjectSkeleton } from "@/types/project";
 import { motion } from "framer-motion";
 import { CheckCircle, ExternalLink, Github } from "lucide-react";
 import { useInView } from "react-intersection-observer";
@@ -71,19 +72,29 @@ export function Projects() {
           <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {projectsData.map((project, index) => {
               // Handle both Contentful and local data structures
-              const isContentful = project.fields;
-              const projectData = isContentful
-                ? {
-                    title: project.fields.title,
-                    description: project.fields.description,
-                    image: project.fields.image?.fields.file?.url || "",
-                    imageAlt: project.fields.title,
-                    github: project.fields.githubLink,
-                    demo: project.fields.demoLink,
-                    tags: project.fields.tags || [],
-                    achievements: project.fields.achievements || [],
-                  }
-                : project;
+              const isContentful = "fields" in project;
+              let projectData: LocalProject;
+
+              if (isContentful) {
+                const contentfulProject = project as ProjectSkeleton;
+                const imageAsset = contentfulProject.fields.image as
+                  | { fields?: { file?: { url?: string } } }
+                  | undefined;
+                const imageUrl: string = imageAsset?.fields?.file?.url || "";
+
+                projectData = {
+                  title: contentfulProject.fields.title,
+                  description: contentfulProject.fields.description,
+                  image: imageUrl,
+                  imageAlt: contentfulProject.fields.title,
+                  github: contentfulProject.fields.githubLink,
+                  demo: contentfulProject.fields.demoLink,
+                  tags: contentfulProject.fields.tags || [],
+                  achievements: contentfulProject.fields.achievements || [],
+                };
+              } else {
+                projectData = project as LocalProject;
+              }
 
               return (
                 <motion.div

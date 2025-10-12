@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { ProjectSkeleton } from "@/types/project";
 import client from "@/lib/contentful";
-import { Entry } from "contentful";
-
+import { ProjectSkeleton } from "@/types/project";
+import { useEffect, useState } from "react";
 
 export const useFetchProjects = () => {
   const [projects, setProjects] = useState<ProjectSkeleton[]>([]);
@@ -13,18 +11,20 @@ export const useFetchProjects = () => {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const response = await client.getEntries<ProjectSkeleton>({ content_type: "project" });
+        const response = await client.getEntries<ProjectSkeleton>({
+          content_type: "project",
+        });
 
-
-        const items: ProjectSkeleton[] = response.items.map((item: Entry<ProjectSkeleton>) => ({
-          contentTypeId: "project",
+        const items = response.items.map((item) => ({
+          contentTypeId: "project" as const,
           fields: {
-            title: item.fields.title,
-            description: item.fields.description,
-            demoLink: item.fields.demoLink,
-            githubLink: item.fields.githubLink,
-            tags: item.fields.tags || [],
-            image: item.fields.image || null,
+            title: item.fields.title as string,
+            description: item.fields.description as string,
+            demoLink: item.fields.demoLink as string,
+            githubLink: item.fields.githubLink as string,
+            tags: (item.fields.tags || []) as string[],
+            achievements: (item.fields.achievements || []) as string[],
+            image: item.fields.image,
           },
         }));
 
