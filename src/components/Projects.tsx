@@ -14,28 +14,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { projects } from "@/data/portfolio";
-import { useFetchProjects } from "@/hooks/use-contentful-data-fetch";
-import { LocalProject, ProjectSkeleton } from "@/types/project";
 import { motion } from "framer-motion";
 import { CheckCircle, ExternalLink, Github } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
 export function Projects() {
-  // Try to fetch from Contentful, fallback to local data
-  const { projects: contentfulProjects, loading, error } = useFetchProjects();
-  const projectsData =
-    contentfulProjects && contentfulProjects.length > 0
-      ? contentfulProjects
-      : projects;
-
-  console.log(
-    "Projects data:",
-    projectsData,
-    "Loading:",
-    loading,
-    "Error:",
-    error
-  );
+  const projectsData = projects;
 
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -62,43 +46,11 @@ export function Projects() {
             Projects
           </h2>
 
-          {loading && <p className="text-center">Loading projects...</p>}
-          {error && (
-            <p className="text-center text-red-500">
-              Error loading projects: {error.message}
-            </p>
-          )}
-
           <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {projectsData.map((project, index) => {
-              // Handle both Contentful and local data structures
-              const isContentful = "fields" in project;
-              let projectData: LocalProject;
-
-              if (isContentful) {
-                const contentfulProject = project as ProjectSkeleton;
-                const imageAsset = contentfulProject.fields.image as
-                  | { fields?: { file?: { url?: string } } }
-                  | undefined;
-                const imageUrl: string = imageAsset?.fields?.file?.url || "";
-
-                projectData = {
-                  title: contentfulProject.fields.title,
-                  description: contentfulProject.fields.description,
-                  image: imageUrl,
-                  imageAlt: contentfulProject.fields.title,
-                  github: contentfulProject.fields.githubLink,
-                  demo: contentfulProject.fields.demoLink,
-                  tags: contentfulProject.fields.tags || [],
-                  achievements: contentfulProject.fields.achievements || [],
-                };
-              } else {
-                projectData = project as LocalProject;
-              }
-
               return (
                 <motion.div
-                  key={projectData.title}
+                  key={project.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -107,35 +59,36 @@ export function Projects() {
                     <CardHeader>
                       <div className="aspect-video overflow-hidden rounded-lg mb-4">
                         <img
-                          src={projectData.image}
+                          src={project.image}
                           alt={
-                            projectData.imageAlt ||
-                            `${projectData.title} project screenshot`
+                            project.imageAlt ||
+                            `${project.title} project screenshot`
                           }
                           className="w-full h-full object-cover transition-transform hover:scale-105"
                           loading="lazy"
                           decoding="async"
                         />
                       </div>
-                      <CardTitle className="text-xl">
-                        {projectData.title}
-                      </CardTitle>
+                      <CardTitle className="text-xl">{project.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow">
                       <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                        {projectData.description}
+                        {project.description}
                       </p>
 
                       {/* Key Achievements */}
-                      {projectData.achievements &&
-                        projectData.achievements.length > 0 && (
+                      {project.achievements &&
+                        project.achievements.length > 0 && (
                           <div className="mb-4">
                             <h4 className="font-semibold text-sm mb-2 text-primary">
                               Key Achievements:
                             </h4>
                             <ul className="space-y-1">
-                              {projectData.achievements.map(
-                                (achievement, achievementIndex) => (
+                              {project.achievements.map(
+                                (
+                                  achievement: string,
+                                  achievementIndex: number
+                                ) => (
                                   <li
                                     key={achievementIndex}
                                     className="flex items-start gap-2 text-xs text-muted-foreground"
@@ -153,13 +106,13 @@ export function Projects() {
                         )}
 
                       {/* Tech Stack */}
-                      {projectData.tags && projectData.tags.length > 0 && (
+                      {project.tags && project.tags.length > 0 && (
                         <div>
                           <h4 className="font-semibold text-sm mb-2">
                             Technologies:
                           </h4>
                           <div className="flex flex-wrap gap-1">
-                            {projectData.tags.map((tag) => (
+                            {project.tags.map((tag: string) => (
                               <Badge
                                 key={tag}
                                 variant="secondary"
@@ -184,10 +137,10 @@ export function Projects() {
                                 className="flex-1"
                               >
                                 <a
-                                  href={projectData.github}
+                                  href={project.github}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  aria-label={`View ${projectData.title} source code on GitHub`}
+                                  aria-label={`View ${project.title} source code on GitHub`}
                                 >
                                   <Github
                                     className="mr-2 h-4 w-4"
@@ -206,16 +159,16 @@ export function Projects() {
                             <TooltipTrigger asChild>
                               <Button asChild size="sm" className="flex-1">
                                 <a
-                                  href={projectData.demo}
+                                  href={project.demo}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  aria-label={`View ${projectData.title} live demo`}
+                                  aria-label={`View ${project.title} live demo`}
                                 >
                                   <ExternalLink
                                     className="mr-2 h-4 w-4"
                                     aria-hidden="true"
                                   />
-                                  {projectData.demo.includes("github.com")
+                                  {project.demo.includes("github.com")
                                     ? "Notebook"
                                     : "Demo"}
                                 </a>
@@ -223,7 +176,7 @@ export function Projects() {
                             </TooltipTrigger>
                             <TooltipContent>
                               <p>
-                                {projectData.demo.includes("github.com")
+                                {project.demo.includes("github.com")
                                   ? "View Jupyter notebook"
                                   : "View live application"}
                               </p>
