@@ -1,9 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useSanityTestimonials } from "@/hooks/use-sanity-testimonials";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
-const testimonials = [
+const localTestimonials = [
   {
     name: "Sarah Johnson",
     role: "Project Manager at TechCorp",
@@ -33,6 +34,17 @@ export function Testimonials() {
     threshold: 0.1,
   });
 
+  const { testimonials: sanityTestimonials, error } = useSanityTestimonials();
+
+  // Use Sanity data if available, otherwise fall back to local data
+  const testimonials = sanityTestimonials && sanityTestimonials.length > 0
+    ? sanityTestimonials
+    : localTestimonials;
+
+  if (error) {
+    console.warn('Error loading testimonials from Sanity, using local data:', error);
+  }
+
   return (
     <section
       className="py-12 md:py-16 bg-muted/30"
@@ -55,7 +67,7 @@ export function Testimonials() {
           <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
             {testimonials.map((testimonial, index) => (
               <motion.div
-                key={testimonial.name}
+                key={`${testimonial.name}-${index}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
