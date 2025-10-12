@@ -14,12 +14,20 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { projects } from "@/data/portfolio";
+import { useSanityProjects } from "@/hooks/use-sanity-projects";
 import { motion } from "framer-motion";
 import { CheckCircle, ExternalLink, Github } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
 export function Projects() {
-  const projectsData = projects;
+  // Try to fetch from Sanity, fallback to local data
+  const { projects: sanityProjects, loading, error } = useSanityProjects();
+  const projectsData = sanityProjects.length > 0 ? sanityProjects : projects;
+
+  console.log(
+    "Using projects from:",
+    sanityProjects.length > 0 ? "Sanity" : "Local data"
+  );
 
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -45,6 +53,18 @@ export function Projects() {
           >
             Projects
           </h2>
+
+          {loading && (
+            <div className="text-center mb-8">
+              <p>Loading projects from Sanity...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center mb-8 text-yellow-600">
+              <p>Unable to load from Sanity, using local data</p>
+            </div>
+          )}
 
           <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {projectsData.map((project, index) => {
@@ -112,9 +132,9 @@ export function Projects() {
                             Technologies:
                           </h4>
                           <div className="flex flex-wrap gap-1">
-                            {project.tags.map((tag: string) => (
+                            {project.tags.map((tag: string, tagIndex: number) => (
                               <Badge
-                                key={tag}
+                                key={`${project.title}-${tag}-${tagIndex}`}
                                 variant="secondary"
                                 className="text-xs"
                               >
@@ -168,7 +188,7 @@ export function Projects() {
                                     className="mr-2 h-4 w-4"
                                     aria-hidden="true"
                                   />
-                                  {project.demo.includes("github.com")
+                                  {project.demo?.includes("github.com")
                                     ? "Notebook"
                                     : "Demo"}
                                 </a>
@@ -176,7 +196,7 @@ export function Projects() {
                             </TooltipTrigger>
                             <TooltipContent>
                               <p>
-                                {project.demo.includes("github.com")
+                                {project.demo?.includes("github.com")
                                   ? "View Jupyter notebook"
                                   : "View live application"}
                               </p>
