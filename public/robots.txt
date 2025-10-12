@@ -1,0 +1,14 @@
+# Robots.txt for Portfolio Website
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://srinivas-portfolio.vercel.app/sitemap.xml
+
+# Block sensitive files
+Disallow: /.env
+Disallow: /.*
+Allow: /.well-known/
+
+# Performance recommendations
+Crawl-delay: 1
