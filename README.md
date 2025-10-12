@@ -73,6 +73,10 @@ cd DevPortfolio
 # Install dependencies
 npm install
 
+# Configure EmailJS (for contact form)
+npm run setup:emailjs
+# OR manually edit .env file - see EMAILJS_SETUP.md
+
 # Start development server
 npm run dev
 
@@ -82,6 +86,30 @@ npm run build
 # Preview production build
 npm run preview
 ```
+
+### 📧 EmailJS Setup
+
+The contact form requires EmailJS configuration:
+
+**Quick Setup (2 minutes):**
+
+```bash
+npm run setup:emailjs
+```
+
+**Manual Setup:**
+
+1. See [`EMAILJS_QUICK_FIX.md`](EMAILJS_QUICK_FIX.md) - Quick guide
+2. See [`EMAILJS_SETUP.md`](EMAILJS_SETUP.md) - Complete documentation
+
+**What you need:**
+
+- EmailJS account (free)
+- Service ID
+- Template ID
+- Public Key
+
+All values go in the `.env` file.
 
 ## 🧪 Quality Assurance
 
