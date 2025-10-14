@@ -288,3 +288,168 @@ export function useRotateOnScroll(rotation: number = 360) {
 
   return ref;
 }
+
+/**
+ * Apple-style smooth parallax effect
+ * Elements move at different speeds creating depth
+ */
+export function useAppleParallax(
+  speed: number = 0.5,
+  reverse: boolean = false
+) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const element = ref.current;
+    const direction = reverse ? -1 : 1;
+
+    gsap.to(element, {
+      y: () => direction * window.innerHeight * speed,
+      ease: "none",
+      scrollTrigger: {
+        trigger: element,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5, // Smooth scrubbing with 1.5 second delay
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [speed, reverse]);
+
+  return ref;
+}
+
+/**
+ * Horizontal scroll effect - Apple-style
+ * Creates horizontal scrolling sections
+ */
+export function useHorizontalScroll() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    const sections = gsap.utils.toArray(".horizontal-section", container);
+
+    if (sections.length === 0) return;
+
+    const scrollTween = gsap.to(sections, {
+      xPercent: -100 * (sections.length - 1),
+      ease: "none",
+      scrollTrigger: {
+        trigger: container,
+        pin: true,
+        scrub: 1,
+        end: () => `+=${container.offsetWidth}`,
+      },
+    });
+
+    return () => {
+      scrollTween.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  return containerRef;
+}
+
+/**
+ * Scale on scroll - zoom in/out effect
+ */
+export function useScaleOnScroll(
+  startScale: number = 0.8,
+  endScale: number = 1
+) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    gsap.fromTo(
+      ref.current,
+      { scale: startScale },
+      {
+        scale: endScale,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 90%",
+          end: "top 20%",
+          scrub: 1,
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [startScale, endScale]);
+
+  return ref;
+}
+
+/**
+ * Pin element while scrolling - sticky effect with animations
+ */
+export function usePinOnScroll(duration: number = 1000) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    ScrollTrigger.create({
+      trigger: ref.current,
+      start: "top top",
+      end: `+=${duration}`,
+      pin: true,
+      pinSpacing: true,
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [duration]);
+
+  return ref;
+}
+
+/**
+ * Clip path reveal animation - Apple-style reveal
+ */
+export function useClipPathReveal(delay: number = 0) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    gsap.fromTo(
+      ref.current,
+      {
+        clipPath: "inset(100% 0% 0% 0%)",
+      },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: 1.2,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [delay]);
+
+  return ref;
+}

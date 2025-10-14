@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/tooltip";
 import { projects } from "@/data/portfolio";
 import {
+  useAppleParallax,
   useScrollAnimation,
   useStaggerAnimation,
 } from "@/hooks/use-gsap-animations";
@@ -28,6 +29,7 @@ export function Projects() {
 
   const titleRef = useScrollAnimation();
   const gridRef = useStaggerAnimation(".project-card", 0.1);
+  const backgroundRef = useAppleParallax(0.4); // Parallax background
 
   console.log(
     "Using projects from:",
@@ -37,10 +39,20 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="py-12 md:py-16 bg-muted/50"
+      className="py-12 md:py-16 bg-muted/50 relative overflow-hidden"
       aria-labelledby="projects-heading"
     >
-      <div className="container px-4 max-w-7xl mx-auto">
+      {/* Parallax background decoration */}
+      <div
+        ref={backgroundRef}
+        className="absolute inset-0 -z-10"
+        aria-hidden="true"
+      >
+        <div className="absolute top-10 right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container px-4 max-w-7xl mx-auto relative z-10">
         <div ref={titleRef}>
           <h2
             id="projects-heading"

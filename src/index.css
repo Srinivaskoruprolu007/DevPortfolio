@@ -144,6 +144,15 @@
     scroll-behavior: smooth;
   }
 
+  /* Custom smooth scrolling for Apple-style effect */
+  #smooth-wrapper {
+    overflow: hidden;
+  }
+
+  #smooth-content {
+    overflow: visible;
+  }
+
   /* Hide scrollbar for smoother look but keep functionality */
   ::-webkit-scrollbar {
     width: 8px;
@@ -259,6 +268,46 @@
     66% {
       transform: translate(-20px, 20px) rotate(240deg);
     }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.8);
+    }
+  }
+
+  /* Smooth animation delays */
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  /* Apple-style bounce animation */
+  @keyframes bounce-slow {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s ease-in-out infinite;
   }
 
   @keyframes fadeInUp {

@@ -6,45 +6,69 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
-import { Testimonials } from "@/components/Testimonials";
-import { ThreeBackground } from "@/components/three/ThreeBackground";
-import { Toaster } from "@/components/ui/toaster";
-import { useState } from "react";
+import gsap from "gsap";
+import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useState } from "react";
+import "./App.css";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (!prefersReducedMotion) {
+      // Initialize smooth scrolling - Apple-style
+      const smoother = ScrollSmoother.create({
+        smooth: 1.5, // Smoothness amount (0-3, higher = smoother)
+        effects: true, // Enable data-speed attributes
+        smoothTouch: 0.1, // Enable smooth scrolling on touch devices
+        normalizeScroll: true, // Prevent address bar showing/hiding from affecting the scroll position
+      });
+
+      // Cleanup on unmount
+      return () => {
+        smoother?.kill();
+      };
+    }
+  }, []);
+
   return (
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      <CursorEffect />
 
-      <div className="min-h-screen">
-        {/* Three.js Animated Background */}
-        <ThreeBackground />
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <Header />
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
 
-        {/* Cursor Effect */}
-        <CursorEffect />
-
-        {/* Skip to main content link for accessibility */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-        >
-          Skip to main content
-        </a>
-
-        <Header />
-
-        <main id="main-content" role="main" aria-label="Main content">
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          {/* <Testimonials /> */}
-          <Contact />
-        </main>
-
-        <Toaster aria-live="polite" />
+          {/* Footer */}
+          <footer className="py-8 bg-muted/50 border-t border-border/50">
+            <div className="container px-4 text-center text-muted-foreground">
+              <p className="text-sm">
+                © {new Date().getFullYear()} Srinivas Koruprolu. All rights
+                reserved.
+              </p>
+              <p className="text-xs mt-2">
+                Built with React, TypeScript, GSAP & Three.js
+              </p>
+            </div>
+          </footer>
+        </div>
       </div>
     </>
   );

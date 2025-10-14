@@ -6,9 +6,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
+  useAppleParallax,
   useFadeInUp,
-  useRotateOnScroll,
   useScaleIn,
+  useScaleOnScroll,
 } from "@/hooks/use-gsap-animations";
 import {
   ChevronDown,
@@ -17,11 +18,14 @@ import {
   Github,
   Linkedin,
 } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-scroll";
 import { DataAnalystIllustration } from "./illustrations/data-analyst";
 import { FrontendDevIllustration } from "./illustrations/frontend-dev";
 
 export function Hero() {
+  const [show3DModels, setShow3DModels] = useState(true); // Toggle 3D models
+
   const badgeRef = useFadeInUp(0);
   const headingRef = useFadeInUp(0.2);
   const descRef = useFadeInUp(0.4);
@@ -29,7 +33,27 @@ export function Hero() {
   const linksRef = useFadeInUp(0.8);
   const illustrationsRef = useScaleIn(0.4);
   const scrollIndicatorRef = useFadeInUp(1);
-  const backgroundDecoRef = useRotateOnScroll(180);
+
+  // Apple-style parallax effects
+  const backgroundDecoRef = useAppleParallax(0.5); // Background moves slower
+  const contentRef = useAppleParallax(0.2); // Content moves slightly
+  const illustrationParallaxRef = useScaleOnScroll(0.9, 1); // Zoom effect on scroll
+
+  // Your AI-generated images - Replace with your actual images!
+  const aiModels = [
+    {
+      imageUrl: "/ai-models/portrait-1.jpg", // Add your AI images to public/ai-models/
+      title: "AI Creation 1",
+    },
+    {
+      imageUrl: "/ai-models/abstract-1.jpg",
+      title: "AI Creation 2",
+    },
+    {
+      imageUrl: "/ai-models/tech-1.jpg",
+      title: "AI Creation 3",
+    },
+  ];
 
   return (
     <section
@@ -37,20 +61,40 @@ export function Hero() {
       aria-labelledby="hero-heading"
       role="banner"
     >
-      {/* Background decoration */}
+      {/* 3D AI Models Scene (Optional - Desktop Only) */}
+
+      {/* Background decoration with parallax */}
       <div ref={backgroundDecoRef} className="absolute inset-0 -z-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow animation-delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-secondary/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-secondary/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container py-8 md:py-16 max-w-7xl mx-auto relative z-10">
+      <div
+        ref={contentRef}
+        className="container py-8 md:py-16 max-w-7xl mx-auto relative z-10"
+      >
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center justify-items-center">
           <div className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
-            <div ref={badgeRef} className="mb-6">
-              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4 border border-primary/20">
+            <div
+              ref={badgeRef}
+              className="mb-6 flex flex-col sm:flex-row gap-3 items-center justify-center lg:justify-start"
+            >
+              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
                 👋 Welcome to my portfolio
               </span>
+
+              {/* Toggle 3D Models Button */}
+              <button
+                onClick={() => setShow3DModels(!show3DModels)}
+                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent-foreground rounded-full text-sm font-medium border border-accent/20 hover:bg-accent/20 transition-all duration-300"
+                aria-label="Toggle 3D AI models"
+              >
+                <span>{show3DModels ? "🎨" : "✨"}</span>
+                <span>
+                  {show3DModels ? "Hide 3D Models" : "Show 3D AI Models"}
+                </span>
+              </button>
             </div>
 
             <h1

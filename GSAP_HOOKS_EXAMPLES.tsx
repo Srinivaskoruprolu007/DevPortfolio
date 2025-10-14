@@ -11,7 +11,7 @@ import {
   useScrollAnimation,
   useStaggerAnimation,
   useTextReveal,
-} from "@/hooks/use-gsap-animations";
+} from "./src/hooks/use-gsap-animations";
 
 /* ============================================
    1. FADE IN FROM BOTTOM

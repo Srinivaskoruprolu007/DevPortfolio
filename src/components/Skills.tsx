@@ -1,18 +1,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { skills } from "@/data/portfolio";
-import { useScrollAnimation } from "@/hooks/use-gsap-animations";
+import {
+  useAppleParallax,
+  useScrollAnimation,
+} from "@/hooks/use-gsap-animations";
 
 export function Skills() {
   const titleRef = useScrollAnimation();
+  const backgroundRef = useAppleParallax(0.35);
 
   return (
     <section
       id="skills"
-      className="py-12 md:py-16"
+      className="py-12 md:py-16 relative overflow-hidden"
       aria-labelledby="skills-heading"
     >
-      <div className="container px-4 max-w-6xl mx-auto">
+      {/* Parallax background decoration */}
+      <div
+        ref={backgroundRef}
+        className="absolute inset-0 -z-10"
+        aria-hidden="true"
+      >
+        <div className="absolute top-10 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container px-4 max-w-6xl mx-auto relative z-10">
         <div ref={titleRef}>
           <h2
             id="skills-heading"
