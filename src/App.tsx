@@ -56,15 +56,17 @@ function App() {
             <Contact />
           </main>
 
-          {/* Footer */}
-          <footer className="py-8 bg-muted/50 border-t border-border/50">
-            <div className="container px-4 text-center text-muted-foreground">
-              <p className="text-sm">
-                © {new Date().getFullYear()} Srinivas Koruprolu. All rights
-                reserved.
+          {/* Footer - Cosmic theme */}
+          <footer className="py-12 glass-strong border-t border-primary/20 relative overflow-hidden">
+            <div className="absolute inset-0 cosmic-gradient-radial opacity-50" />
+            <div className="container px-4 text-center text-muted-foreground relative z-10">
+              <p className="text-sm font-medium">
+                © {new Date().getFullYear()} Digital Universe Portfolio. Crafted with passion.
               </p>
-              <p className="text-xs mt-2">
+              <p className="text-xs mt-3 flex items-center justify-center gap-2">
+                <span className="text-primary">⚡</span>
                 Built with React, TypeScript, GSAP & Three.js
+                <span className="text-secondary">✨</span>
               </p>
             </div>
           </footer>
