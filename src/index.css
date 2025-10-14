@@ -210,6 +210,19 @@
     }
   }
 
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(139, 92, 246, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4);
+    }
+  }
+
   /* 3D transforms */
   .perspective-1000 {
     perspective: 1000px;
