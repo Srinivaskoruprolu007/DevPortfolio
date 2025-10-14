@@ -8,8 +8,7 @@ import {
 import {
   useAppleParallax,
   useFadeInUp,
-  useScaleIn,
-  useScaleOnScroll,
+  useScaleIn
 } from "@/hooks/use-gsap-animations";
 import {
   ChevronDown,
@@ -37,23 +36,10 @@ export function Hero() {
   // Apple-style parallax effects
   const backgroundDecoRef = useAppleParallax(0.5); // Background moves slower
   const contentRef = useAppleParallax(0.2); // Content moves slightly
-  const illustrationParallaxRef = useScaleOnScroll(0.9, 1); // Zoom effect on scroll
+   // Zoom effect on scroll
 
   // Your AI-generated images - Replace with your actual images!
-  const aiModels = [
-    {
-      imageUrl: "/ai-models/portrait-1.jpg", // Add your AI images to public/ai-models/
-      title: "AI Creation 1",
-    },
-    {
-      imageUrl: "/ai-models/abstract-1.jpg",
-      title: "AI Creation 2",
-    },
-    {
-      imageUrl: "/ai-models/tech-1.jpg",
-      title: "AI Creation 3",
-    },
-  ];
+
 
   return (
     <section
