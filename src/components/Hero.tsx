@@ -32,15 +32,12 @@ export function Hero() {
 
   // Enhanced animations
   const badgeRef = useFadeInUp(0);
-  const titleRef = useCinematicTextReveal(0.3);
+  const titleRef = useFadeInUp(0.3);
   const subtitleRef = useFadeInUp(0.5);
   const descRef = useFadeInUp(0.7);
   const buttonsRef = useFadeInUp(0.9);
   const linksRef = useFadeInUp(1.1);
   const scrollIndicatorRef = useFadeInUp(1.3);
-  
-  const ctaButtonRef = useGlowPulse();
-  const magneticRef = useMagneticButton(0.2);
 
   // Parallax effects
   const backgroundDecoRef = useAppleParallax(0.5);
