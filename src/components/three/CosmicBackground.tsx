@@ -59,20 +59,30 @@ export function CosmicBackground() {
   });
 
   return (
-    <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
-      <PointMaterial
+    <points ref={pointsRef} frustumCulled={false}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={positions.length / 3}
+          array={positions}
+          itemSize={3}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={colors.length / 3}
+          array={colors}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.15}
         transparent
         vertexColors
-        size={0.15}
         sizeAttenuation={true}
         depthWrite={false}
         opacity={0.8}
         blending={THREE.AdditiveBlending}
       />
-      <bufferAttribute
-        attach="attributes-color"
-        args={[colors, 3]}
-      />
-    </Points>
+    </points>
   );
 }
