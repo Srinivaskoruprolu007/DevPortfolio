@@ -11,34 +11,40 @@ import {
   useScaleIn
 } from "@/hooks/use-gsap-animations";
 import {
+  useCinematicTextReveal,
+  useGlowPulse,
+  useMagneticButton,
+} from "@/hooks/use-enhanced-gsap";
+import {
   ChevronDown,
   Download,
   ExternalLink,
   Github,
   Linkedin,
+  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-scroll";
-import { DataAnalystIllustration } from "./illustrations/data-analyst";
-import { FrontendDevIllustration } from "./illustrations/frontend-dev";
+import { EnhancedThreeBackground } from "./three/EnhancedThreeBackground";
 
 export function Hero() {
-  const [show3DModels, setShow3DModels] = useState(true); // Toggle 3D models
+  const [show3DBackground, setShow3DBackground] = useState(true);
 
+  // Enhanced animations
   const badgeRef = useFadeInUp(0);
-  const headingRef = useFadeInUp(0.2);
-  const descRef = useFadeInUp(0.4);
-  const buttonsRef = useFadeInUp(0.6);
-  const linksRef = useFadeInUp(0.8);
-  const illustrationsRef = useScaleIn(0.4);
-  const scrollIndicatorRef = useFadeInUp(1);
+  const titleRef = useCinematicTextReveal(0.3);
+  const subtitleRef = useFadeInUp(0.5);
+  const descRef = useFadeInUp(0.7);
+  const buttonsRef = useFadeInUp(0.9);
+  const linksRef = useFadeInUp(1.1);
+  const scrollIndicatorRef = useFadeInUp(1.3);
+  
+  const ctaButtonRef = useGlowPulse();
+  const magneticRef = useMagneticButton(0.2);
 
-  // Apple-style parallax effects
-  const backgroundDecoRef = useAppleParallax(0.5); // Background moves slower
-  const contentRef = useAppleParallax(0.2); // Content moves slightly
-   // Zoom effect on scroll
-
-  // Your AI-generated images - Replace with your actual images!
+  // Parallax effects
+  const backgroundDecoRef = useAppleParallax(0.5);
+  const contentRef = useAppleParallax(0.2);
 
 
   return (
