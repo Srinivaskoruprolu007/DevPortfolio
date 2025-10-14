@@ -122,10 +122,9 @@ export function Hero() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      ref={ctaButtonRef as any}
                       asChild
                       size="lg"
-                      className="cosmic-gradient text-white font-bold px-10 py-7 text-lg rounded-full hover:scale-105 transition-transform duration-300 shadow-2xl"
+                      className="cosmic-gradient text-white font-bold px-10 py-7 text-lg rounded-full hover:scale-105 transition-transform duration-300 shadow-2xl animate-glow-pulse"
                     >
                       <Link
                         to="contact"
@@ -148,7 +147,6 @@ export function Hero() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      ref={magneticRef as any}
                       variant="outline"
                       size="lg"
                       asChild
