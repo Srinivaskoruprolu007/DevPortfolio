@@ -7,7 +7,7 @@ import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import gsap from "gsap";
-import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useState } from "react";
 import "./App.css";
