@@ -1,8 +1,10 @@
 import { useEffect, useRef, RefObject } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CSSPlugin } from 'gsap/CSSPlugin';
 
-gsap.registerPlugin(ScrollTrigger);
+// Force CSSPlugin to not get dropped during build
+gsap.registerPlugin(ScrollTrigger, CSSPlugin);
 
 /**
  * useCinematicTextReveal
