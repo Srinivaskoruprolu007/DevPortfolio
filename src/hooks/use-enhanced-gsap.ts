@@ -130,13 +130,8 @@ export function useGlowPulse(): RefObject<HTMLElement> {
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.to(ref.current, {
-      boxShadow: '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4)',
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
+    // Use CSS class animation instead of GSAP for box-shadow
+    ref.current.classList.add('animate-glow-pulse');
   }, []);
 
   return ref;
