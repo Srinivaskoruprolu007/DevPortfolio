@@ -263,11 +263,11 @@ export function Hero() {
 
         <div
           ref={scrollIndicatorRef}
-          className="flex justify-center mt-16 animate-bounce-slow"
+          className="flex justify-center mt-20 animate-bounce-slow"
         >
-          <Link to="about" spy={true} smooth={true} offset={-64} duration={500}>
-            <div className="glass p-3 rounded-full hover:bg-primary/10 transition-all duration-300 cursor-pointer group">
-              <ChevronDown className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-primary/80 transition-colors" />
+          <Link to="about" spy={true} smooth={true} offset={-64} duration={800}>
+            <div className="glass-strong p-4 rounded-full hover:glow-blue transition-all duration-300 cursor-pointer group">
+              <ChevronDown className="h-8 w-8 text-primary group-hover:scale-110 transition-transform" />
             </div>
           </Link>
         </div>
