@@ -53,8 +53,8 @@ export function Hero() {
       aria-labelledby="hero-heading"
       role="banner"
     >
-      {/* Enhanced 3D Cosmic Background */}
-      {show3DBackground && <EnhancedThreeBackground />}
+      {/* Enhanced 3D Cosmic Background - Commented out for now, user can enable later */}
+      {/* {show3DBackground && <EnhancedThreeBackground />} */}
 
       {/* Background decoration with parallax - cosmic nebula orbs */}
       <div ref={backgroundDecoRef} className="absolute inset-0 -z-10">
