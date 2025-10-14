@@ -30,3 +30,7 @@ dist-ssr
 *.sln
 *.sw?
 test
+-e 
+# Environment files
+*.env
+*.env.*
