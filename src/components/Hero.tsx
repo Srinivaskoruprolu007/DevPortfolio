@@ -177,7 +177,7 @@ export function Hero() {
 
             <div
               ref={linksRef}
-              className="flex flex-wrap justify-center lg:justify-start gap-3"
+              className="flex flex-wrap justify-center gap-3"
             >
               <TooltipProvider>
                 <Tooltip>
@@ -186,13 +186,13 @@ export function Hero() {
                       variant="ghost"
                       size="sm"
                       asChild
-                      className="glass hover:bg-primary/10 transition-all duration-300"
+                      className="glass hover:glow-blue transition-all duration-300"
                     >
                       <a
-                        href="https://www.linkedin.com/in/srinivas-koruprolu/"
+                        href="https://linkedin.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Connect with me on LinkedIn"
+                        aria-label="Connect on LinkedIn"
                         className="px-4 py-2"
                       >
                         <Linkedin className="mr-2 h-4 w-4" aria-hidden="true" />
@@ -200,8 +200,8 @@ export function Hero() {
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="glass">
-                    <p>Connect with me professionally</p>
+                  <TooltipContent side="bottom" className="glass-strong">
+                    <p>Professional network</p>
                   </TooltipContent>
                 </Tooltip>
 
@@ -211,26 +211,25 @@ export function Hero() {
                       variant="ghost"
                       size="sm"
                       asChild
-                      className="glass hover:bg-green-500/10 text-green-600 hover:text-green-700 transition-all duration-300"
+                      className="glass hover:glow-purple transition-all duration-300"
                     >
                       <a
-                        href="https://docs.google.com/document/d/1bfuztmRBf2ui-MKKQLHYhWwsxROIPbnE/edit?usp=sharing&ouid=103175391586875038607&rtpof=true&sd=true"
+                        href="#"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="View my resume online"
+                        aria-label="View resume"
                         className="px-4 py-2"
                       >
                         <ExternalLink
                           className="mr-2 h-4 w-4"
                           aria-hidden="true"
                         />
-                        <span className="hidden sm:inline">View Resume</span>
-                        <span className="sm:hidden">Resume</span>
+                        Resume
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="glass">
-                    <p>View my resume online</p>
+                  <TooltipContent side="bottom" className="glass-strong">
+                    <p>View credentials</p>
                   </TooltipContent>
                 </Tooltip>
 
@@ -240,43 +239,24 @@ export function Hero() {
                       variant="ghost"
                       size="sm"
                       asChild
-                      className="glass hover:bg-blue-500/10 text-blue-600 hover:text-blue-700 transition-all duration-300"
+                      className="glass hover:glow-teal transition-all duration-300"
                     >
                       <a
-                        href="https://docs.google.com/document/d/1bfuztmRBf2ui-MKKQLHYhWwsxROIPbnE/export?format=pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Download my resume as PDF"
-                        download="Srinivas_Koruprolu_Resume.pdf"
+                        href="#"
+                        download
+                        aria-label="Download resume"
                         className="px-4 py-2"
                       >
                         <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                        <span className="hidden sm:inline">Download PDF</span>
-                        <span className="sm:hidden">PDF</span>
+                        Download
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="glass">
-                    <p>Download resume as PDF (≈ 200KB)</p>
+                  <TooltipContent side="bottom" className="glass-strong">
+                    <p>Get PDF version</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            </div>
-          </div>
-
-          <div
-            ref={illustrationsRef}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6 order-first lg:order-last max-w-2xl mx-auto"
-          >
-            <div className="flex justify-center group">
-              <div className="glass p-6 rounded-2xl shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 hover:scale-105 hover:rotate-2">
-                <DataAnalystIllustration />
-              </div>
-            </div>
-            <div className="flex justify-center group">
-              <div className="glass p-6 rounded-2xl shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 hover:scale-105 hover:-rotate-2">
-                <FrontendDevIllustration />
-              </div>
             </div>
           </div>
         </div>
