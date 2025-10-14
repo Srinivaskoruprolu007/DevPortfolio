@@ -1,6 +1,6 @@
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
-import { CursorEffect } from "@/components/effects/CursorEffect";
+import { EnhancedCursorEffect } from "@/components/effects/EnhancedCursorEffect";
 import { LoadingScreen } from "@/components/effects/LoadingScreen";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -25,12 +25,12 @@ function App() {
     ).matches;
 
     if (!prefersReducedMotion) {
-      // Initialize smooth scrolling - Apple-style
+      // Initialize smooth scrolling - Enhanced cinematic feel
       const smoother = ScrollSmoother.create({
-        smooth: 1.5, // Smoothness amount (0-3, higher = smoother)
+        smooth: 2, // Increased smoothness for cinematic effect
         effects: true, // Enable data-speed attributes
         smoothTouch: 0.1, // Enable smooth scrolling on touch devices
-        normalizeScroll: true, // Prevent address bar showing/hiding from affecting the scroll position
+        normalizeScroll: true, // Prevent address bar showing/hiding from affecting scroll
       });
 
       // Cleanup on unmount
@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      <CursorEffect />
+      <EnhancedCursorEffect />
 
       <div id="smooth-wrapper">
         <div id="smooth-content">
