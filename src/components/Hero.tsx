@@ -67,37 +67,39 @@ export function Hero() {
         ref={contentRef}
         className="container py-8 md:py-16 max-w-7xl mx-auto relative z-10"
       >
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center justify-items-center">
-          <div className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+        <div className="grid lg:grid-cols-1 gap-8 lg:gap-12 items-center justify-items-center max-w-5xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto">
             <div
               ref={badgeRef}
-              className="mb-6 flex flex-col sm:flex-row gap-3 items-center justify-center lg:justify-start"
+              className="mb-8 flex flex-col sm:flex-row gap-3 items-center justify-center"
             >
-              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
-                👋 Welcome to my portfolio
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 glass-strong text-primary rounded-full text-sm font-medium border border-primary/30 glow-blue">
+                <Sparkles className="w-4 h-4" />
+                Digital Universe Portfolio
               </span>
 
-              {/* Toggle 3D Models Button */}
+              {/* Toggle 3D Background Button */}
               <button
-                onClick={() => setShow3DModels(!show3DModels)}
-                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent-foreground rounded-full text-sm font-medium border border-accent/20 hover:bg-accent/20 transition-all duration-300"
-                aria-label="Toggle 3D AI models"
+                onClick={() => setShow3DBackground(!show3DBackground)}
+                className="inline-flex items-center gap-2 px-4 py-2 glass text-accent-foreground rounded-full text-sm font-medium border border-accent/20 hover:glass-strong transition-all duration-300"
+                aria-label="Toggle 3D cosmic background"
               >
-                <span>{show3DModels ? "🎨" : "✨"}</span>
-                <span>
-                  {show3DModels ? "Hide 3D Models" : "Show 3D AI Models"}
+                <span>{show3DBackground ? "✨" : "🌟"}</span>
+                <span className="hidden sm:inline">
+                  {show3DBackground ? "3D On" : "3D Off"}
                 </span>
               </button>
             </div>
 
             <h1
-              ref={headingRef}
               id="hero-heading"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight perspective-1000"
             >
-              Data Analyst &{" "}
-              <span className="block gradient-primary bg-clip-text text-transparent">
-                Frontend Developer
+              <span ref={titleRef} className="block text-gradient-cosmic">
+                Creative Developer
+              </span>
+              <span ref={subtitleRef} className="block text-foreground mt-2">
+                & Digital Innovator
               </span>
             </h1>
 
