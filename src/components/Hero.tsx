@@ -90,12 +90,12 @@ export function Hero() {
 
             <h1
               id="hero-heading"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight perspective-1000"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight"
             >
-              <span ref={titleRef} className="block text-gradient-cosmic">
+              <span ref={titleRef as any} className="block text-gradient-cosmic">
                 Creative Developer
               </span>
-              <span ref={subtitleRef} className="block text-foreground mt-2">
+              <span ref={subtitleRef as any} className="block text-foreground mt-2">
                 & Digital Innovator
               </span>
             </h1>
