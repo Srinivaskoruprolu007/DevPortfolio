@@ -105,71 +105,71 @@ export function Hero() {
 
             <p
               ref={descRef}
-              className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed font-light"
+              className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground mb-12 leading-relaxed font-light max-w-3xl mx-auto"
             >
-              Transforming{" "}
-              <span className="text-primary font-semibold">
-                data into insights
+              Crafting{" "}
+              <span className="text-gradient-cosmic font-bold">
+                immersive digital experiences
               </span>{" "}
-              and creating{" "}
-              <span className="text-primary font-semibold">
-                beautiful web experiences
+              through code, design, and{" "}
+              <span className="text-gradient-cosmic font-bold">
+                cutting-edge technology
               </span>
             </p>
 
             <div
               ref={buttonsRef}
-              className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 mb-12"
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-12"
             >
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
+                      ref={ctaButtonRef as any}
                       asChild
                       size="lg"
-                      className="btn-gradient shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 transform hover:scale-105"
+                      className="cosmic-gradient text-white font-bold px-10 py-7 text-lg rounded-full hover:scale-105 transition-transform duration-300 shadow-2xl"
                     >
                       <Link
                         to="contact"
                         spy={true}
                         smooth={true}
                         offset={-64}
-                        duration={500}
-                        className="cursor-pointer px-8 py-3 text-lg font-semibold"
+                        duration={800}
+                        className="cursor-pointer"
                       >
-                        Let's Connect ✨
+                        <Sparkles className="mr-2 h-5 w-5" />
+                        Start a Project
                       </Link>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="glass">
-                    <p>Get in touch for projects and collaborations</p>
+                  <TooltipContent side="bottom" className="glass-strong">
+                    <p>Let's build something amazing together</p>
                   </TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
+                      ref={magneticRef as any}
                       variant="outline"
                       size="lg"
                       asChild
-                      className="glass hover:bg-primary/10 transition-all duration-300 transform hover:scale-105 shadow-custom-md hover:shadow-custom-lg"
+                      className="glass-strong hover:glow-blue border-primary/30 px-8 py-7 text-lg rounded-full transition-all duration-300"
                     >
                       <a
-                        href="https://github.com/Srinivaskoruprolu007"
+                        href="https://github.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Visit my GitHub profile"
-                        className="px-6 py-3 text-base font-medium"
+                        aria-label="View GitHub profile"
                       >
                         <Github className="mr-2 h-5 w-5" aria-hidden="true" />
-                        GitHub
+                        View Work
                       </a>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="glass">
-                    <p>
-                      View my code repositories and open source contributions
-                    </p>
+                  <TooltipContent side="bottom" className="glass-strong">
+                    <p>Explore my projects and code</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
