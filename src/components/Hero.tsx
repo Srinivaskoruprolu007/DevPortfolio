@@ -23,7 +23,7 @@ import { DataAnalystIllustration } from "./illustrations/data-analyst";
 import { FrontendDevIllustration } from "./illustrations/frontend-dev";
 
 export function Hero() {
-  const [show3DModels, setShow3DModels] = useState(true); // Toggle 3D models
+ 
 
   const badgeRef = useFadeInUp(0);
   const headingRef = useFadeInUp(0.2);
