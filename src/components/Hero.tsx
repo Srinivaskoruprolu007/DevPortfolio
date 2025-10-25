@@ -17,7 +17,6 @@ import {
   Github,
   Linkedin,
 } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-scroll";
 import { DataAnalystIllustration } from "./illustrations/data-analyst";
 import { FrontendDevIllustration } from "./illustrations/frontend-dev";
