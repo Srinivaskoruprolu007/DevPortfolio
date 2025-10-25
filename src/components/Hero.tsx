@@ -38,7 +38,6 @@ export function Hero() {
   const contentRef = useAppleParallax(0.2); // Content moves slightly
    // Zoom effect on scroll
 
-  // Your AI-generated images - Replace with your actual images!
 
 
   return (
@@ -70,17 +69,7 @@ export function Hero() {
                 👋 Welcome to my portfolio
               </span>
 
-              {/* Toggle 3D Models Button */}
-              <button
-                onClick={() => setShow3DModels(!show3DModels)}
-                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent-foreground rounded-full text-sm font-medium border border-accent/20 hover:bg-accent/20 transition-all duration-300"
-                aria-label="Toggle 3D AI models"
-              >
-                <span>{show3DModels ? "🎨" : "✨"}</span>
-                <span>
-                  {show3DModels ? "Hide 3D Models" : "Show 3D AI Models"}
-                </span>
-              </button>
+          
             </div>
 
             <h1
