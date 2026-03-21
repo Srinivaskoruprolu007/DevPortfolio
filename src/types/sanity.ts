@@ -105,3 +105,13 @@ export interface TestimonialFromSanity {
   featured: boolean;
   date?: string;
 }
+
+export interface AboutFromSanity {
+  title: string;
+  subtitle: string;
+  bio: string;
+  image: string;
+  imageAlt: string;
+  resume: string;
+  socialLinks: SocialLink[];
+}

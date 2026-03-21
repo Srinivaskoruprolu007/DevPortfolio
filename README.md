@@ -1,6 +1,6 @@
 # Srinivas Koruprolu - Portfolio Website
 
-🚀 **A modern, accessible, and performance-optimized portfolio showcasing data analysis and frontend development expertise.**
+🚀 **A modern, accessible, and performance-optimized portfolio showcasing full-stack development and enterprise software engineering expertise.**
 
 [![Lighthouse Score](https://img.shields.io/badge/Lighthouse-95%2B-green)](https://pagespeed.web.dev/)
 [![Accessibility](https://img.shields.io/badge/a11y-WCAG%202.1%20AA-green)](https://www.w3.org/WAI/WCAG21/AA/)

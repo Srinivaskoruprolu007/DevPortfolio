@@ -168,7 +168,7 @@ export const skillSchema = {
         list: [
           { title: "Frontend", value: "frontend" },
           { title: "Backend", value: "backend" },
-          { title: "Data Analysis", value: "dataAnalysis" },
+          { title: "Full Stack Development", value: "fullStack" },
           { title: "Tools", value: "tools" },
         ],
       },
