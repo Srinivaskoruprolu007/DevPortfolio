@@ -1,3 +1,4 @@
+import { profile } from "@/data/portfolio";
 import {
   useAppleParallax,
   useScrollAnimation,
@@ -7,23 +8,32 @@ import { SectionHeading } from "./contact/section-heading";
 
 export function Contact() {
   const sectionRef = useScrollAnimation();
-  const backgroundRef = useAppleParallax(0.5); // Slower parallax for depth
+  const backgroundRef = useAppleParallax(0.5);
 
   return (
     <section
       id="contact"
-      className="py-20 md:py-24 relative overflow-hidden"
+      className="relative py-16 md:py-20"
       aria-labelledby="contact-heading"
     >
-      {/* Background decoration with parallax */}
       <div ref={backgroundRef} className="absolute inset-0 -z-10">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse-slow animation-delay-1000"></div>
+        <div className="absolute top-20 right-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-20 left-10 h-96 w-96 rounded-full bg-accent/5 blur-3xl" />
       </div>
 
-      <div className="container px-4 max-w-6xl mx-auto relative z-10">
-        <div ref={sectionRef} className="max-w-4xl mx-auto">
-          <SectionHeading />
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div
+          ref={sectionRef}
+          className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-start"
+        >
+          <div className="space-y-6">
+            <SectionHeading />
+            <p className="max-w-md text-sm leading-7 text-muted-foreground">
+              Based in {profile.location}. I am open to full-time roles,
+              freelance projects, and product-focused frontend or full-stack
+              work.
+            </p>
+          </div>
           <ContactForm />
         </div>
       </div>

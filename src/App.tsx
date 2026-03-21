@@ -6,34 +6,34 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
+import { Testimonials } from "@/components/Testimonials";
+import { Toaster } from "@/components/ui/toaster";
 import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useState } from "react";
 import "./App.css";
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const isLargeViewport = window.matchMedia("(min-width: 1024px)").matches;
 
-    if (!prefersReducedMotion) {
-      // Initialize smooth scrolling - Apple-style
+    if (!prefersReducedMotion && hasFinePointer && isLargeViewport) {
       const smoother = ScrollSmoother.create({
-        smooth: 1.5, // Smoothness amount (0-3, higher = smoother)
-        effects: true, // Enable data-speed attributes
-        smoothTouch: 0.1, // Enable smooth scrolling on touch devices
-        normalizeScroll: true, // Prevent address bar showing/hiding from affecting the scroll position
+        smooth: 1.3,
+        effects: true,
+        smoothTouch: 0,
+        normalizeScroll: true,
       });
 
-      // Cleanup on unmount
       return () => {
         smoother?.kill();
       };
@@ -44,6 +44,7 @@ function App() {
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       <CursorEffect />
+      <Toaster />
 
       <div id="smooth-wrapper">
         <div id="smooth-content">
@@ -53,18 +54,19 @@ function App() {
             <About />
             <Skills />
             <Projects />
+            <Testimonials />
             <Contact />
           </main>
 
-          {/* Footer */}
-          <footer className="py-8 bg-muted/50 border-t border-border/50">
+          <footer className="border-t border-border/60 bg-background/80 py-8">
             <div className="container px-4 text-center text-muted-foreground">
               <p className="text-sm">
                 © {new Date().getFullYear()} Srinivas Koruprolu. All rights
                 reserved.
               </p>
-              <p className="text-xs mt-2">
-                Built with React, TypeScript, GSAP & Three.js
+              <p className="mt-2 text-xs">
+                Built with React, TypeScript, GSAP, and a focus on polished
+                developer experiences.
               </p>
             </div>
           </footer>

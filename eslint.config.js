@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'GSAP_HOOKS_EXAMPLES.tsx'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -23,6 +23,12 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+    },
+  },
+  {
+    files: ['src/components/ui/**/*.{ts,tsx}', 'src/components/theme/theme-provider.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   }
 );

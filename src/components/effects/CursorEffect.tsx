@@ -12,35 +12,29 @@ interface Particle {
 export function CursorEffect() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
   const lastTimeRef = useRef(Date.now());
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+    if (prefersReducedMotion || !hasFinePointer) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Set canvas size
+    let frameId = 0;
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    // Mouse move handler
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-
-      // Create particles on mouse move
-      const now = Date.now();
-      if (now - lastTimeRef.current > 30) {
-        // Throttle particle creation
-        createParticle(e.clientX, e.clientY);
-        lastTimeRef.current = now;
-      }
     };
 
     const createParticle = (x: number, y: number) => {
@@ -52,36 +46,38 @@ export function CursorEffect() {
         life: 1,
         maxLife: 60 + Math.random() * 60,
       };
+
       particlesRef.current.push(particle);
 
-      // Limit particle count
       if (particlesRef.current.length > 100) {
         particlesRef.current.shift();
       }
     };
 
-    // Animation loop
+    const handleMouseMove = (event: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastTimeRef.current > 30) {
+        createParticle(event.clientX, event.clientY);
+        lastTimeRef.current = now;
+      }
+    };
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw particles
       particlesRef.current = particlesRef.current.filter((particle) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
-        particle.life++;
+        particle.life += 1;
 
         const lifeRatio = 1 - particle.life / particle.maxLife;
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, 2 * lifeRatio, 0, Math.PI * 2);
-
-        // Gradient color based on theme
         const alpha = lifeRatio * 0.6;
-        ctx.fillStyle = `rgba(59, 130, 246, ${alpha})`; // Primary blue
+        ctx.fillStyle = `rgba(59, 130, 246, ${alpha})`;
         ctx.fill();
 
-        // Draw glow
         const gradient = ctx.createRadialGradient(
           particle.x,
           particle.y,
@@ -103,13 +99,16 @@ export function CursorEffect() {
         return particle.life < particle.maxLife;
       });
 
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     };
 
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
     window.addEventListener("mousemove", handleMouseMove);
     animate();
 
     return () => {
+      cancelAnimationFrame(frameId);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", resizeCanvas);
     };
@@ -118,7 +117,7 @@ export function CursorEffect() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-40"
+      className="pointer-events-none fixed inset-0 z-40"
       style={{ mixBlendMode: "screen" }}
       aria-hidden="true"
     />

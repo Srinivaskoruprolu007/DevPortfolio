@@ -1,162 +1,214 @@
-import AuthApp from "../Assets/AuthApp.png";
 import CVAI from "../Assets/CVAI.png";
-import HappyHappenings from "../Assets/HappyHappenings.png";
-import TargetSales from "../Assets/TargetSales.jpg";
-import Weatherly from "../Assets/Weatherly.png";
+
+export const profile = {
+  name: "Srinivas Koruprolu",
+  role: "Full-Stack Developer",
+  location: "Bengaluru, India",
+  availability: "Open to full-time roles and contract builds",
+  summary:
+    "I build responsive TypeScript products with a focus on clarity, performance, and maintainable code.",
+  about:
+    "With 3+ years in enterprise delivery, I have worked across React interfaces, Node.js services, PostgreSQL-backed systems, and release workflows. I enjoy turning product requirements into clean, reliable implementations.",
+  githubUrl: "https://github.com/Srinivaskoruprolu007",
+  linkedinUrl: "https://www.linkedin.com/in/srinivas-koruprolu/",
+  resumeViewUrl:
+    "https://drive.google.com/file/d/1kEaf8n7ritBl3SIr2CvRlgkgBSwFr4Ya/view?usp=sharing",
+  resumeDownloadUrl:
+    "https://drive.google.com/uc?export=download&id=1kEaf8n7ritBl3SIr2CvRlgkgBSwFr4Ya",
+};
+
+export const heroStats = [
+  { value: "3+", label: "Years shipping production software" },
+  { value: "50+", label: "Enterprise and citizen-facing services supported" },
+  { value: "95+", label: "Lighthouse scores on recent launches" },
+];
+
+export const focusAreas = [
+  "React and Next.js user interfaces",
+  "TypeScript APIs, data flows, and platform integrations",
+  "Performance, accessibility, and developer experience",
+];
+
+export const aboutHighlights = [
+  {
+    title: "Enterprise delivery",
+    description:
+      "Built and maintained production features for large-scale government and enterprise platforms with reliability requirements.",
+  },
+  {
+    title: "Full-stack ownership",
+    description:
+      "Comfortable moving from interaction design and component architecture to backend APIs, data modeling, and release workflows.",
+  },
+  {
+    title: "Performance mindset",
+    description:
+      "Prioritize clean code, measurable outcomes, and UX details that keep products fast, stable, and easy to evolve.",
+  },
+];
+
+export const contactHighlights = [
+  {
+    title: "Best fit",
+    description:
+      "Product teams that need strong execution across frontend systems, APIs, and delivery quality.",
+  },
+  {
+    title: "Response time",
+    description: "I usually reply within one business day.",
+  },
+  {
+    title: "Collaboration",
+    description:
+      "Comfortable working with distributed teams across product, design, and engineering.",
+  },
+];
 
 export const skills = {
   frontend: [
-    { name: "React", level: 90 },
-    { name: "JavaScript", level: 85 },
+    { name: "React 19", level: 95 },
+    { name: "Next.js", level: 90 },
+    { name: "TypeScript", level: 92 },
     { name: "Tailwind CSS", level: 90 },
-    { name: "HTML", level: 80 },
+    { name: "shadcn/ui", level: 85 },
+    { name: "AG Grid", level: 80 },
   ],
-  Backend: [
-    { name: ".Net", level: 70 },
-    { name: "Flask", level: 50 },
-    { name: "Next.js", level: 75 },
+  backend: [
+    { name: "Node.js", level: 88 },
+    { name: "Express.js", level: 85 },
+    { name: "REST APIs", level: 92 },
+    { name: "Prisma", level: 80 },
+    { name: "Next.js API Routes", level: 84 },
   ],
-  dataAnalysis: [
-    { name: "Python", level: 85 },
-    { name: "SQL", level: 90 },
-    { name: "Pandas", level: 85 },
-    { name: "Tableau", level: 80 },
-    { name: "Statistics", level: 90 },
-    { name: "PowerBI", level: 70 },
+  databases: [
+    { name: "PostgreSQL", level: 86 },
+    { name: "MongoDB", level: 80 },
+    { name: "Neon", level: 80 },
+    { name: "Redis", level: 75 },
+  ],
+  devops: [
+    { name: "GitHub Actions", level: 82 },
+    { name: "Vercel", level: 88 },
+    { name: "Netlify", level: 80 },
+    { name: "Docker", level: 72 },
+    { name: "Dynatrace", level: 74 },
   ],
   tools: [
-    { name: "Git", level: 85 },
+    { name: "Git", level: 90 },
     { name: "VS Code", level: 90 },
-    { name: "Jupyter", level: 85 },
-    { name: "Visual Studio", level: 75 },
+    { name: "Postman", level: 85 },
+    { name: "Linux", level: 78 },
   ],
 };
 
 export const education = [
   {
-    degree: "Certification in Data Science and Machine Learning",
-    school: "Scaler",
-    year: "2023-2025",
-    description: "Focused on machine learning and statistical analysis",
-  },
-  {
-    degree: "Bachelor in Technology",
+    degree: "Bachelor of Technology in Electronics and Communication Engineering",
     school: "Avanti Institute of Engineering and Technology",
     year: "2019-2022",
-    description: "Specialized in Electronics and Communication Engineering",
+    description:
+      "Built a strong foundation in systems thinking, problem solving, and technical communication.",
+  },
+  {
+    degree: "Contentstack Certified Professional",
+    school: "Contentstack",
+    year: "2025",
+    description:
+      "Validated hands-on experience with enterprise CMS implementation and content operations.",
+  },
+  {
+    degree: "Git for Professionals",
+    school: "Udemy",
+    year: "2024",
+    description:
+      "Focused on collaborative Git workflows, history hygiene, and release-safe branching strategies.",
   },
 ];
 
 export const projects = [
   {
-    title: "HappyHappenings",
+    title: "Gatherly",
+    eyebrow: "Personal product",
+    impact: "AI-assisted research and bookmarking workflow for content-heavy teams",
     description:
-      "A Music Concert Management Application with minimal styling and having Feature to host music concerts anf featured videos.",
+      "A knowledge library for saving, organizing, and processing links with AI summaries and tags.",
     achievements: [
-      "Built responsive React application with modern UI/UX design",
-      "Implemented concert booking and management system",
-      "Integrated video streaming functionality for live performances",
-      "Deployed on Vercel with optimized performance",
+      "Reached 95+ Lighthouse scores while keeping the interface fast on desktop and mobile.",
+      "Handled 1,000+ bookmarks with sub-second reads using Prisma, Neon, and Redis-backed patterns.",
+      "Integrated AI summarization and tagging to reduce manual organization work.",
+      "Shipped with SEO, Open Graph, and PWA essentials for production readiness.",
     ],
-    tags: ["React", "Tailwindcss", "HTML", "JavaScript"],
-    image: HappyHappenings,
-    imageAlt:
-      "HappyHappenings music concert management application homepage with featured events",
-    github: "https://github.com/Srinivaskoruprolu007/HappyHappenings",
-    demo: "https://happy-happenings-xom2.vercel.app/",
-  },
-  {
-    title: "House Price Prediction Model",
-    description:
-      "This project predicts Bengaluru house prices using a Linear Regression model. The dataset includes features like location, size, bedrooms, bathrooms, and square footage to estimate prices accurately.",
-    achievements: [
-      "Achieved 85% accuracy in house price predictions using Linear Regression",
-      "Analyzed 13,000+ real estate records from Bengaluru market",
-      "Implemented feature engineering for location-based pricing",
-      "Created interactive Jupyter notebook with data visualizations",
+    tags: [
+      "React 19",
+      "TanStack Start",
+      "Prisma",
+      "Neon",
+      "OpenRouter",
+      "Redis",
     ],
-    tags: ["Python", "Machine Learning", "SQL"],
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2024&auto=format&fit=crop",
     imageAlt:
-      "Modern house with architectural design representing real estate price prediction analytics",
-    github:
-      "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model",
-    demo: "https://github.com/Srinivaskoruprolu007/House-Price-Prediction-Model/blob/master/Code/ML-Model.ipynb",
+      "Knowledge management dashboard with saved resources and AI-generated summaries",
+    github: "https://github.com/Srinivaskoruprolu007/gatherly",
+    demo: "https://gatherly-bice.vercel.app/",
+    demoLabel: "Live app",
   },
   {
-    title: "Target Sales Analysis",
+    title: "Product Store PERN",
+    eyebrow: "Full-stack build",
+    impact: "CRUD commerce app focused on backend structure and API quality",
     description:
-      "This Case study is about predicting the sales of a retail store chain. The dataset includes features like store size, location, and historical sales data to get sales insights and recommendations.",
+      "A product management storefront focused on REST APIs, relational data, and clean frontend-backend integration.",
     achievements: [
-      "Analyzed $2M+ in retail sales data across multiple store locations",
-      "Created comprehensive SQL queries for business intelligence",
-      "Designed ER diagrams for optimized database structure",
-      "Generated actionable insights leading to 15% revenue improvement recommendations",
+      "Built RESTful endpoints with fast response times and predictable validation behavior.",
+      "Used PostgreSQL migrations and relational modeling to support product operations cleanly.",
+      "Added middleware for validation, CORS, and environment-aware production safeguards.",
+      "Structured the app for straightforward local development and deployment.",
     ],
-    tags: ["SQL", "Google big Query", "Google Docs", "ER Diagrams"],
-    image: TargetSales,
-    imageAlt:
-      "Target retail sales analysis dashboard showing business intelligence insights",
-    github: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study",
-    demo: "https://github.com/Srinivaskoruprolu007/Target-SQL-Case-Study/blob/main/Case_Study.pdf",
+    tags: ["React", "Express.js", "PostgreSQL", "Node.js"],
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2024&auto=format&fit=crop",
+    imageAlt: "Product dashboard with inventory cards and commerce controls",
+    github: "https://github.com/Srinivaskoruprolu007/product_store_PERN",
+    demoLabel: "Source code",
   },
   {
     title: "CVAI",
+    eyebrow: "AI workflow",
+    impact: "Resume analysis experience with a simple, conversion-focused interface",
     description:
-      "CVAI is a modern, full-stack web application that leverages AI to analyze resumes and provide actionable feedback for job seekers. Built with React Router, Tailwind CSS, and Puter.js APIs, it offers a seamless experience for uploading, analyzing, and tracking resume submissions.",
+      "A lightweight resume analysis product with clean UX and fast AI-powered document feedback.",
     achievements: [
-      "Integrated AI-powered resume analysis using Puter.js APIs",
-      "Built full-stack application with React Router v7 for SPA navigation",
-      "Implemented secure file upload with drag-and-drop functionality",
-      "Created responsive design supporting multiple document formats (PDF, DOCX)",
+      "Scored 90+ on Lighthouse with a focused UI and minimal styling overhead.",
+      "Integrated Puter.js APIs to process resumes and return useful analysis quickly.",
+      "Delivered a mobile-first layout that stays clear and usable on smaller screens.",
+      "Kept the codebase lean enough to ship quickly without sacrificing polish.",
     ],
-    tags: [
-      "React",
-      "Tailwindcss",
-      "HTML",
-      "Typescript",
-      "Puter.js",
-      "React-Router-v7",
-    ],
+    tags: ["React Router", "Puter.js", "Tailwind CSS"],
     image: CVAI,
-    imageAlt:
-      "CVAI resume analysis application interface with AI-powered feedback system",
+    imageAlt: "Resume analysis application with upload flow and AI feedback",
     github: "https://github.com/Srinivaskoruprolu007/CVAI",
     demo: "https://cvai-phi.vercel.app/",
+    demoLabel: "Live app",
   },
   {
-    title: "Weatherly",
+    title: "TAMM Government Portal",
+    eyebrow: "Enterprise project",
+    impact: "Large-scale multilingual service platform used for public digital journeys",
     description:
-      "Weatherly is a weather app that provides real-time weather information and forecasts for a specific location.",
+      "A government services platform where I contributed to multilingual experiences and platform reliability.",
     achievements: [
-      "Integrated OpenWeatherMap API for real-time weather data",
-      "Built responsive design supporting both mobile and desktop views",
-      "Implemented geolocation-based weather detection",
-      "Added 5-day weather forecast with hourly breakdowns",
+      "Supported multilingual UI and API experiences across Arabic and English journeys.",
+      "Reduced runtime issues by driving stronger TypeScript adoption in the codebase.",
+      "Worked with monitoring and observability tools such as Dynatrace and Kibana.",
+      "Contributed to CI/CD workflows and CMS-backed delivery for fast-moving releases.",
     ],
-    tags: ["React", "Tailwindcss", "HTML", "JavaScript", "API"],
-    image: Weatherly,
-    imageAlt:
-      "Weatherly weather app showing current conditions and 5-day forecast interface",
-    github: "https://github.com/Srinivaskoruprolu007/Weatherly",
-    demo: "https://weatherly-pearl-tau.vercel.app/",
-  },
-  {
-    title: "Full Authentication Using NextJS",
-    description:
-      "This project is a full authentication system using NextJS, which includes features like login, signup, and protected routes and email verification.",
-    achievements: [
-      "Implemented secure JWT-based authentication system",
-      "Built email verification workflow with automated sending",
-      "Created protected routes with role-based access control",
-      "Deployed scalable authentication service with 99.9% uptime",
-    ],
-    tags: ["NextJS", "Tailwindcss", "HTML", "JavaScript", "API"],
-    image: AuthApp,
-    imageAlt:
-      "NextJS authentication system with secure login, signup, and email verification features",
-    github: "https://github.com/Srinivaskoruprolu007/fullauthnext",
-    demo: "https://fullauthnext-rho.vercel.app/",
+    tags: ["Next.js", "TypeScript", "Payload CMS", "PostgreSQL", "Dynatrace"],
+    image:
+      "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?q=80&w=2024&auto=format&fit=crop",
+    imageAlt: "Government services portal with structured navigation and service entry points",
+    demo: "https://www.tamm.abudhabi/",
+    demoLabel: "Public site",
   },
 ];

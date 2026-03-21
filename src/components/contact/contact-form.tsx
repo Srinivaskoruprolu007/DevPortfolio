@@ -38,18 +38,20 @@ export function ContactForm() {
     try {
       await sendEmail(data);
       toast({
-        title: "✅ Message sent successfully!",
+        title: "Message sent successfully",
         description:
-          "Thank you for your message. I'll get back to you within 24 hours.",
+          "Thanks for reaching out. I will get back to you within one business day.",
         duration: 5000,
       });
       form.reset();
     } catch (error) {
       console.error("Contact form error:", error);
       toast({
-        title: "❌ Failed to send message",
+        title: "Failed to send message",
         description:
-          "Something went wrong. Please try again or contact me directly via email.",
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again in a moment.",
         variant: "destructive",
         duration: 7000,
       });
@@ -59,7 +61,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="glass p-8 rounded-2xl shadow-custom-xl max-w-2xl mx-auto">
+    <div className="glass mx-auto max-w-none rounded-[28px] border border-border/60 p-6 shadow-custom-xl sm:p-8">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -67,62 +69,54 @@ export function ContactForm() {
           aria-labelledby="contact-form-heading"
           noValidate
         >
-          <div className="text-center mb-8">
-            <h3 id="contact-form-heading" className="text-2xl font-bold mb-2">
-              Let's Start a Conversation 💬
+          <div className="mb-8 text-center">
+            <h3 id="contact-form-heading" className="mb-2 text-2xl font-bold">
+              Start the conversation
             </h3>
             <p className="text-muted-foreground">
-              I'd love to hear about your project or just say hello!
+              A few details about the product, scope, or team is more than
+              enough to get started.
             </p>
           </div>
-          
+
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel 
-                  htmlFor="contact-name" 
-                  className="text-base font-semibold flex items-center gap-2"
-                >
-                  👤 Full Name *
+                <FormLabel htmlFor="contact-name" className="text-base font-semibold">
+                  Full name
                 </FormLabel>
                 <FormControl>
-                  <div className="relative">
-                    <Input
-                      id="contact-name"
-                      placeholder="Enter your full name"
-                      className={`h-12 text-base transition-all duration-300 input-enhanced ${
-                        form.formState.errors.name 
-                          ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]" 
-                          : "focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] hover:border-primary/50"
-                      }`}
-                      aria-describedby={
-                        form.formState.errors.name ? "name-error" : undefined
-                      }
-                      aria-invalid={!!form.formState.errors.name}
-                      disabled={isSubmitting}
-                      {...field}
-                    />
-                    {isSubmitting && (
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
+                  <Input
+                    id="contact-name"
+                    autoComplete="name"
+                    placeholder="Your full name"
+                    className={`h-12 text-base transition-all duration-300 input-enhanced ${
+                      form.formState.errors.name
+                        ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
+                        : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+                    }`}
+                    aria-describedby={
+                      form.formState.errors.name ? "name-error" : undefined
+                    }
+                    aria-invalid={!!form.formState.errors.name}
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage
                   id="name-error"
                   role="alert"
-                  className="flex items-center gap-2 text-sm bg-destructive/10 text-destructive px-3 py-2 rounded-md"
+                  className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
                 >
                   {form.formState.errors.name && (
                     <>
                       <AlertCircle
-                        className="h-4 w-4 text-destructive flex-shrink-0"
+                        className="h-4 w-4 flex-shrink-0 text-destructive"
                         aria-hidden="true"
                       />
-                      <span>{form.formState.errors.name?.message}</span>
+                      <span>{form.formState.errors.name.message}</span>
                     </>
                   )}
                 </FormMessage>
@@ -135,49 +129,40 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel 
-                  htmlFor="contact-email" 
-                  className="text-base font-semibold flex items-center gap-2"
-                >
-                  📧 Email Address *
+                <FormLabel htmlFor="contact-email" className="text-base font-semibold">
+                  Email address
                 </FormLabel>
                 <FormControl>
-                  <div className="relative">
-                    <Input
-                      id="contact-email"
-                      type="email"
-                      placeholder="your.email@example.com"
-                      className={`h-12 text-base transition-all duration-300 input-enhanced ${
-                        form.formState.errors.email 
-                          ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]" 
-                          : "focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] hover:border-primary/50"
-                      }`}
-                      aria-describedby={
-                        form.formState.errors.email ? "email-error" : undefined
-                      }
-                      aria-invalid={!!form.formState.errors.email}
-                      disabled={isSubmitting}
-                      {...field}
-                    />
-                    {isSubmitting && (
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
+                  <Input
+                    id="contact-email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@company.com"
+                    className={`h-12 text-base transition-all duration-300 input-enhanced ${
+                      form.formState.errors.email
+                        ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
+                        : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+                    }`}
+                    aria-describedby={
+                      form.formState.errors.email ? "email-error" : undefined
+                    }
+                    aria-invalid={!!form.formState.errors.email}
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage
                   id="email-error"
                   role="alert"
-                  className="flex items-center gap-2 text-sm bg-destructive/10 text-destructive px-3 py-2 rounded-md"
+                  className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
                 >
                   {form.formState.errors.email && (
                     <>
                       <AlertCircle
-                        className="h-4 w-4 text-destructive flex-shrink-0"
+                        className="h-4 w-4 flex-shrink-0 text-destructive"
                         aria-hidden="true"
                       />
-                      <span>{form.formState.errors.email?.message}</span>
+                      <span>{form.formState.errors.email.message}</span>
                     </>
                   )}
                 </FormMessage>
@@ -190,56 +175,43 @@ export function ContactForm() {
             name="message"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel 
-                  htmlFor="contact-message" 
-                  className="text-base font-semibold flex items-center gap-2"
-                >
-                  💬 Message *
+                <FormLabel htmlFor="contact-message" className="text-base font-semibold">
+                  Message
                 </FormLabel>
                 <FormControl>
-                  <div className="relative">
-                    <Textarea
-                      id="contact-message"
-                      placeholder="Tell me about your project, ideas, or just say hello! I'm excited to hear from you..."
-                      className={`min-h-[140px] resize-y text-base transition-all duration-300 input-enhanced ${
-                        form.formState.errors.message 
-                          ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]" 
-                          : "focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] hover:border-primary/50"
-                      }`}
-                      aria-describedby={
-                        form.formState.errors.message
-                          ? "message-error"
-                          : "message-help"
-                      }
-                      aria-invalid={!!form.formState.errors.message}
-                      disabled={isSubmitting}
-                      {...field}
-                    />
-                    {isSubmitting && (
-                      <div className="absolute right-3 top-3">
-                        <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
+                  <Textarea
+                    id="contact-message"
+                    placeholder="Tell me about the product, timeline, or problem you want solved."
+                    className={`min-h-[160px] resize-y text-base transition-all duration-300 input-enhanced ${
+                      form.formState.errors.message
+                        ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
+                        : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+                    }`}
+                    aria-describedby={
+                      form.formState.errors.message
+                        ? "message-error"
+                        : "message-help"
+                    }
+                    aria-invalid={!!form.formState.errors.message}
+                    disabled={isSubmitting}
+                    {...field}
+                  />
                 </FormControl>
-                <div 
-                  id="message-help" 
-                  className="text-sm text-muted-foreground flex items-center gap-1"
-                >
-                  ℹ️ Minimum 10 characters required
+                <div id="message-help" className="text-sm text-muted-foreground">
+                  Minimum 10 characters required
                 </div>
                 <FormMessage
                   id="message-error"
                   role="alert"
-                  className="flex items-center gap-2 text-sm bg-destructive/10 text-destructive px-3 py-2 rounded-md"
+                  className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
                 >
                   {form.formState.errors.message && (
                     <>
                       <AlertCircle
-                        className="h-4 w-4 text-destructive flex-shrink-0"
+                        className="h-4 w-4 flex-shrink-0 text-destructive"
                         aria-hidden="true"
                       />
-                      <span>{form.formState.errors.message?.message}</span>
+                      <span>{form.formState.errors.message.message}</span>
                     </>
                   )}
                 </FormMessage>
@@ -250,7 +222,7 @@ export function ContactForm() {
           <div className="pt-4">
             <Button
               type="submit"
-              className="w-full h-14 text-lg font-semibold btn-gradient shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 transform hover:scale-[1.02] disabled:transform-none disabled:hover:scale-100"
+              className="btn-gradient h-14 w-full text-lg font-semibold shadow-custom-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-custom-xl disabled:hover:scale-100"
               disabled={isSubmitting}
               aria-describedby="submit-help"
             >
@@ -260,31 +232,25 @@ export function ContactForm() {
                     className="mr-3 h-5 w-5 animate-spin"
                     aria-hidden="true"
                   />
-                  <span className="animate-pulse">Sending Message...</span>
+                  <span className="animate-pulse">Sending message...</span>
                 </>
               ) : (
-                <>
-                  <span>Send Message</span>
-                  <span className="ml-2 text-xl">🚀</span>
-                </>
+                <span>Send message</span>
               )}
             </Button>
-            
+
             <p
               id="submit-help"
-              className="text-sm text-muted-foreground text-center mt-4 flex items-center justify-center gap-1"
+              className="mt-4 text-center text-sm text-muted-foreground"
             >
-              <span>⏱️</span>
-              I typically respond within 24 hours
+              I typically respond within one business day.
             </p>
           </div>
-          
-          {/* Success state indicator */}
+
           {form.formState.isSubmitSuccessful && !isSubmitting && (
-            <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-green-700 dark:text-green-300 font-medium flex items-center justify-center gap-2">
-                <span className="text-xl">✨</span>
-                Thank you! Your message has been sent successfully.
+            <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center dark:border-green-800 dark:bg-green-900/20">
+              <p className="font-medium text-green-700 dark:text-green-300">
+                Thank you. Your message has been sent successfully.
               </p>
             </div>
           )}

@@ -1,10 +1,11 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { education } from "@/data/portfolio";
+import { education, profile } from "@/data/portfolio";
 import {
   useAppleParallax,
   useScrollAnimation,
 } from "@/hooks/use-gsap-animations";
-import { GraduationCap } from "lucide-react";
+import { Download, ExternalLink, GraduationCap } from "lucide-react";
 
 export function About() {
   const sectionRef = useScrollAnimation();
@@ -13,51 +14,90 @@ export function About() {
   return (
     <section
       id="about"
-      className="py-12 md:py-16 bg-muted/50 relative overflow-hidden"
+      className="relative py-14 md:py-18"
       aria-labelledby="about-heading"
     >
-      {/* Parallax background decoration */}
       <div
         ref={backgroundRef}
         className="absolute inset-0 -z-10"
         aria-hidden="true"
       >
-        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute left-10 top-20 h-72 w-72 rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
       </div>
 
-      <div className="container px-4 max-w-6xl mx-auto relative z-10">
-        <div ref={sectionRef} className="max-w-4xl mx-auto">
-          <h2
-            id="about-heading"
-            className="text-2xl sm:text-3xl font-bold mb-6 md:mb-8 text-center"
-          >
-            About Me
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-12 text-center leading-relaxed">
-            I'm a passionate Data Analyst and Frontend Developer with expertise
-            in turning complex data into actionable insights and creating
-            engaging web experiences. With a background in both data science and
-            web development, I bring a unique perspective to every project.
-          </p>
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div
+          ref={sectionRef}
+          className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start"
+        >
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
+              About
+            </p>
+            <h2
+              id="about-heading"
+              className="mt-3 text-2xl font-semibold leading-tight text-foreground sm:text-3xl"
+            >
+              Building practical interfaces and dependable product experiences.
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+              {profile.about}
+            </p>
 
-          <div className="space-y-6 md:space-y-8">
-            <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-center">
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button asChild variant="outline">
+                <a
+                  href={profile.resumeViewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  View Resume
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="sm">
+                <a
+                  href={profile.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  LinkedIn
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="sm">
+                <a
+                  href={profile.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  GitHub
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-lg font-semibold text-foreground">
               Education
             </h3>
-            <div className="grid gap-4 md:gap-6 sm:grid-cols-1 md:grid-cols-2">
+            <div className="grid gap-4">
               {education.map((edu, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <GraduationCap className="h-5 w-5" />
+                <Card key={index} className="border-border/60 bg-card">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <GraduationCap className="h-4 w-4" />
                       {edu.degree}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="font-medium">{edu.school}</p>
                     <p className="text-sm text-muted-foreground">{edu.year}</p>
-                    <p className="mt-2 text-sm">{edu.description}</p>
                   </CardContent>
                 </Card>
               ))}

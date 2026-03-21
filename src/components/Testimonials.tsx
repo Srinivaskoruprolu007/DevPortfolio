@@ -1,29 +1,21 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { useSanityTestimonials } from "@/hooks/use-sanity-testimonials";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
 const localTestimonials = [
   {
-    name: "Sarah Johnson",
-    role: "Project Manager at TechCorp",
+    name: "Somesh Nautiyal",
+    role: "Senior Architect at Capgemini",
     content:
-      "Srinivas delivered exceptional data analysis that helped us identify key market trends. His insights led to a 20% increase in our quarterly revenue.",
+      "Srinivas is a high-performing full-stack developer whose work on large-scale enterprise modules improved performance and reduced deployment risk. As a mentor, I saw him take ownership, lead architecture discussions, and drive successful deliveries across teams.",
     rating: 5,
   },
   {
-    name: "Mike Chen",
-    role: "Lead Developer at StartupXYZ",
+    name: "Soham Debnath",
+    role: "Technical Lead at Capgemini",
     content:
-      "Working with Srinivas on the frontend development was amazing. His attention to detail and modern React skills really impressed our team.",
-    rating: 5,
-  },
-  {
-    name: "Dr. Amanda Roberts",
-    role: "Research Director",
-    content:
-      "The machine learning model Srinivas developed for our housing price predictions exceeded our accuracy expectations. Professional and thorough work.",
+      "Srinivas consistently delivered production-grade code and cross-team collaboration with strong communication. His focus on TypeScript safety, API design, and test automation made a measurable difference in our release quality.",
     rating: 5,
   },
 ];
@@ -34,23 +26,12 @@ export function Testimonials() {
     threshold: 0.1,
   });
 
-  const { testimonials: sanityTestimonials, error } = useSanityTestimonials();
-
-  // Use Sanity data if available, otherwise fall back to local data
-  const testimonials = sanityTestimonials && sanityTestimonials.length > 0
-    ? sanityTestimonials
-    : localTestimonials;
-
-  if (error) {
-    console.warn('Error loading testimonials from Sanity, using local data:', error);
-  }
-
   return (
     <section
-      className="py-12 md:py-16 bg-muted/30"
+      className="bg-muted/30 py-14 md:py-20"
       aria-labelledby="testimonials-heading"
     >
-      <div className="container px-4 max-w-6xl mx-auto">
+      <div className="container mx-auto max-w-6xl px-4">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -59,23 +40,32 @@ export function Testimonials() {
         >
           <h2
             id="testimonials-heading"
-            className="text-2xl sm:text-3xl font-bold mb-8 md:mb-12 text-center"
+            className="mb-4 text-center text-3xl font-bold sm:text-4xl"
           >
-            What People Say
+            Recommendations from teammates
           </h2>
+          <p className="mx-auto mb-10 max-w-3xl text-center text-base leading-7 text-muted-foreground">
+            Feedback from people I have worked with in delivery-heavy
+            environments where code quality, collaboration, and ownership
+            mattered every week.
+          </p>
 
-          <div className="grid gap-6 md:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
+          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+            {localTestimonials.map((testimonial, index) => (
               <motion.div
                 key={`${testimonial.name}-${index}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
               >
-                <Card className="h-full">
+                <Card className="h-full border-border/60 bg-card/80">
                   <CardContent className="p-6">
+                    <Quote
+                      className="mb-4 h-8 w-8 text-primary/70"
+                      aria-hidden="true"
+                    />
                     <div
-                      className="flex mb-4"
+                      className="mb-4 flex"
                       aria-label={`${testimonial.rating} out of 5 stars`}
                     >
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -86,7 +76,7 @@ export function Testimonials() {
                         />
                       ))}
                     </div>
-                    <blockquote className="text-muted-foreground mb-4 italic">
+                    <blockquote className="mb-5 text-muted-foreground italic leading-7">
                       "{testimonial.content}"
                     </blockquote>
                     <footer>

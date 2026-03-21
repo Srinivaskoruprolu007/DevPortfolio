@@ -2,21 +2,22 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
-// Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-/**
- * Fade in from bottom animation
- */
+function cleanupTween(tween?: gsap.core.Tween | null) {
+  tween?.scrollTrigger?.kill();
+  tween?.kill();
+}
+
 export function useFadeInUp(delay: number = 0) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       ref.current,
       {
         opacity: 0,
@@ -30,21 +31,20 @@ export function useFadeInUp(delay: number = 0) {
         ease: "power3.out",
       }
     );
+
+    return () => cleanupTween(tween);
   }, [delay]);
 
   return ref;
 }
 
-/**
- * Scale in animation
- */
 export function useScaleIn(delay: number = 0) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       ref.current,
       {
         opacity: 0,
@@ -58,14 +58,13 @@ export function useScaleIn(delay: number = 0) {
         ease: "back.out(1.7)",
       }
     );
+
+    return () => cleanupTween(tween);
   }, [delay]);
 
   return ref;
 }
 
-/**
- * Stagger animation for children elements
- */
 export function useStaggerAnimation(selector: string, delay: number = 0) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -73,8 +72,7 @@ export function useStaggerAnimation(selector: string, delay: number = 0) {
     if (!ref.current) return;
 
     const elements = ref.current.querySelectorAll(selector);
-
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       elements,
       {
         opacity: 0,
@@ -89,14 +87,13 @@ export function useStaggerAnimation(selector: string, delay: number = 0) {
         ease: "power2.out",
       }
     );
+
+    return () => cleanupTween(tween);
   }, [selector, delay]);
 
   return ref;
 }
 
-/**
- * Scroll-triggered animation
- */
 export function useScrollAnimation(options?: gsap.TweenVars) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -104,8 +101,7 @@ export function useScrollAnimation(options?: gsap.TweenVars) {
     if (!ref.current) return;
 
     const element = ref.current;
-
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       element,
       {
         opacity: 0,
@@ -126,17 +122,12 @@ export function useScrollAnimation(options?: gsap.TweenVars) {
       }
     );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [options]);
 
   return ref;
 }
 
-/**
- * Parallax scroll effect
- */
 export function useParallax(speed: number = 0.5) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -144,8 +135,7 @@ export function useParallax(speed: number = 0.5) {
     if (!ref.current) return;
 
     const element = ref.current;
-
-    gsap.to(element, {
+    const tween = gsap.to(element, {
       y: () => window.innerHeight * speed,
       ease: "none",
       scrollTrigger: {
@@ -156,17 +146,12 @@ export function useParallax(speed: number = 0.5) {
       },
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [speed]);
 
   return ref;
 }
 
-/**
- * Animate counter/numbers
- */
 export function useCountUp(
   target: number,
   duration: number = 2,
@@ -178,8 +163,7 @@ export function useCountUp(
     if (!ref.current) return;
 
     const obj = { value: 0 };
-
-    gsap.to(obj, {
+    const tween = gsap.to(obj, {
       value: target,
       duration,
       delay,
@@ -190,21 +174,20 @@ export function useCountUp(
         }
       },
     });
+
+    return () => cleanupTween(tween);
   }, [target, duration, delay]);
 
   return ref;
 }
 
-/**
- * Progress bar animation
- */
 export function useProgressAnimation(value: number, delay: number = 0) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       ref.current,
       {
         width: "0%",
@@ -222,17 +205,12 @@ export function useProgressAnimation(value: number, delay: number = 0) {
       }
     );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [value, delay]);
 
   return ref;
 }
 
-/**
- * Text reveal animation (word by word)
- */
 export function useTextReveal(delay: number = 0) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -240,8 +218,7 @@ export function useTextReveal(delay: number = 0) {
     if (!ref.current) return;
 
     const words = ref.current.querySelectorAll(".word");
-
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       words,
       {
         opacity: 0,
@@ -256,21 +233,20 @@ export function useTextReveal(delay: number = 0) {
         ease: "power2.out",
       }
     );
+
+    return () => cleanupTween(tween);
   }, [delay]);
 
   return ref;
 }
 
-/**
- * Rotate on scroll
- */
 export function useRotateOnScroll(rotation: number = 360) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.to(ref.current, {
+    const tween = gsap.to(ref.current, {
       rotation,
       ease: "none",
       scrollTrigger: {
@@ -281,18 +257,12 @@ export function useRotateOnScroll(rotation: number = 360) {
       },
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [rotation]);
 
   return ref;
 }
 
-/**
- * Apple-style smooth parallax effect
- * Elements move at different speeds creating depth
- */
 export function useAppleParallax(
   speed: number = 0.5,
   reverse: boolean = false
@@ -304,30 +274,23 @@ export function useAppleParallax(
 
     const element = ref.current;
     const direction = reverse ? -1 : 1;
-
-    gsap.to(element, {
+    const tween = gsap.to(element, {
       y: () => direction * window.innerHeight * speed,
       ease: "none",
       scrollTrigger: {
         trigger: element,
         start: "top bottom",
         end: "bottom top",
-        scrub: 1.5, // Smooth scrubbing with 1.5 second delay
+        scrub: 1.5,
       },
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [speed, reverse]);
 
   return ref;
 }
 
-/**
- * Horizontal scroll effect - Apple-style
- * Creates horizontal scrolling sections
- */
 export function useHorizontalScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -350,18 +313,12 @@ export function useHorizontalScroll() {
       },
     });
 
-    return () => {
-      scrollTween.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(scrollTween);
   }, []);
 
   return containerRef;
 }
 
-/**
- * Scale on scroll - zoom in/out effect
- */
 export function useScaleOnScroll(
   startScale: number = 0.8,
   endScale: number = 1
@@ -371,7 +328,7 @@ export function useScaleOnScroll(
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       ref.current,
       { scale: startScale },
       {
@@ -386,24 +343,19 @@ export function useScaleOnScroll(
       }
     );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [startScale, endScale]);
 
   return ref;
 }
 
-/**
- * Pin element while scrolling - sticky effect with animations
- */
 export function usePinOnScroll(duration: number = 1000) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    ScrollTrigger.create({
+    const trigger = ScrollTrigger.create({
       trigger: ref.current,
       start: "top top",
       end: `+=${duration}`,
@@ -411,24 +363,19 @@ export function usePinOnScroll(duration: number = 1000) {
       pinSpacing: true,
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => trigger.kill();
   }, [duration]);
 
   return ref;
 }
 
-/**
- * Clip path reveal animation - Apple-style reveal
- */
 export function useClipPathReveal(delay: number = 0) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       ref.current,
       {
         clipPath: "inset(100% 0% 0% 0%)",
@@ -446,9 +393,7 @@ export function useClipPathReveal(delay: number = 0) {
       }
     );
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => cleanupTween(tween);
   }, [delay]);
 
   return ref;

@@ -1,15 +1,15 @@
 export function SectionHeading() {
   return (
-    <div className="text-center mb-12">
-      <div className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4 border border-primary/20">
-        📧 Contact Me
-      </div>
-      <h2 id="contact-heading" className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
-        Get in Touch
+    <div className="text-center lg:text-left">
+      <h2
+        id="contact-heading"
+        className="mb-4 text-2xl font-semibold text-foreground sm:text-3xl"
+      >
+        Contact
       </h2>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-        Have a project in mind or want to collaborate? I'd love to hear from you!
-        Let's create something amazing together.
+      <p className="mx-auto max-w-xl text-base leading-7 text-muted-foreground lg:mx-0">
+        Share a little about the role, product, or project and I will get back
+        to you soon.
       </p>
     </div>
   );
