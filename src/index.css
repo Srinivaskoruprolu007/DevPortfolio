@@ -214,12 +214,6 @@
     }
   }
 
-  @media (max-width: 425px) {
-    #smooth-content {
-      padding-top: 3.25rem;
-    }
-  }
-
   /* Animated background patterns */
   .animated-background {
     position: relative;

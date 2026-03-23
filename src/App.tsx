@@ -45,10 +45,10 @@ function App() {
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       <CursorEffect />
       <Toaster />
+      <Header />
 
       <div id="smooth-wrapper">
         <div id="smooth-content">
-          <Header />
           <main>
             <Hero />
             <About />
@@ -61,7 +61,7 @@ function App() {
           <footer className="border-t border-border/60 bg-background/80 py-8">
             <div className="container px-4 text-center text-muted-foreground">
               <p className="text-sm">
-                © {new Date().getFullYear()} Srinivas Koruprolu. All rights
+                &copy; {new Date().getFullYear()} Srinivas Koruprolu. All rights
                 reserved.
               </p>
               <p className="mt-2 text-xs">
