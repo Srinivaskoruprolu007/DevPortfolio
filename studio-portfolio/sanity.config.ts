@@ -1,5 +1,7 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
+// Sanity Studio resolves this dependency within the nested studio workspace.
+// fallow-ignore-next-line unresolved-import
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 

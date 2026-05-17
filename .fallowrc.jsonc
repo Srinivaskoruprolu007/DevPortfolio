@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  // Vercel invokes this route by URL; the React app calls it with fetch("/api/visit").
+  "dynamicallyLoaded": ["api/visit.ts"],
+  "ignoreDependencies": [
+    // Imported from Tailwind config rather than application source.
+    "tailwindcss-animate",
+    // Sanity Studio runtime dependencies resolved within the nested studio workspace.
+    "@sanity/eslint-config-studio",
+    "@sanity/vision",
+    "react",
+    "styled-components"
+  ]
+}
