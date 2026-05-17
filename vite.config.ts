@@ -1,19 +1,9 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
-// import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    // Bundle analyzer - generates stats.html
-    // visualizer({
-    //   filename: "dist/stats.html",
-    //   open: true,
-    //   gzipSize: true,
-    //   brotliSize: true,
-    // }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -31,9 +21,11 @@ export default defineConfig({
         manualChunks: {
           vendor: ["react", "react-dom"],
           ui: [
-            "@radix-ui/react-accordion",
             "@radix-ui/react-dialog",
-            "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-icons",
+            "@radix-ui/react-label",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-toast",
           ],
           animations: ["framer-motion"],
           utils: ["clsx", "tailwind-merge"],
