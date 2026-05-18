@@ -10,6 +10,17 @@ type VisitorCounterProps = {
   variant?: "compact" | "panel";
 };
 
+function parseVisitorCount(rawCount: string) {
+  const parsedCount = Number(rawCount);
+
+  if (Number.isFinite(parsedCount) && parsedCount >= 0) {
+    return Math.floor(parsedCount);
+  }
+
+  console.warn("Ignoring invalid VITE_DEV_VISITOR_COUNT:", rawCount);
+  return null;
+}
+
 function readDevelopmentVisitorCount() {
   if (!import.meta.env.DEV) {
     return null;
@@ -21,14 +32,33 @@ function readDevelopmentVisitorCount() {
     return null;
   }
 
-  const parsedCount = Number(rawCount);
+  return parseVisitorCount(rawCount);
+}
 
-  if (!Number.isFinite(parsedCount) || parsedCount < 0) {
-    console.warn("Ignoring invalid VITE_DEV_VISITOR_COUNT:", rawCount);
-    return null;
+async function fetchVisitorCount(signal: AbortSignal) {
+  const response = await fetch("/api/visit", {
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Visitor counter request failed: ${response.status}`);
   }
 
-  return Math.floor(parsedCount);
+  const payload = (await response.json()) as VisitorCountResponse;
+
+  if (typeof payload.count !== "number") {
+    throw new Error("Visitor counter returned an invalid payload.");
+  }
+
+  return payload.count;
+}
+
+function isAbortError(error: unknown) {
+  return error instanceof DOMException && error.name === "AbortError";
 }
 
 export function VisitorCounter({
@@ -50,28 +80,10 @@ export function VisitorCounter({
       }
 
       try {
-        const response = await fetch("/api/visit", {
-          cache: "no-store",
-          headers: {
-            Accept: "application/json",
-          },
-          signal: abortController.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error(`Visitor counter request failed: ${response.status}`);
-        }
-
-        const payload = (await response.json()) as VisitorCountResponse;
-
-        if (typeof payload.count !== "number") {
-          throw new Error("Visitor counter returned an invalid payload.");
-        }
-
-        setCount(payload.count);
+        setCount(await fetchVisitorCount(abortController.signal));
         setStatus("ready");
       } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") {
+        if (isAbortError(error)) {
           return;
         }
 
