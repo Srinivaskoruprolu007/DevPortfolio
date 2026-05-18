@@ -1,3 +1,4 @@
+// Vercel serves this API route at /api/visit; VisitorCounter calls it with fetch().
 import { Redis } from "@upstash/redis";
 
 const VISITOR_TTL_SECONDS = 60 * 60 * 24;

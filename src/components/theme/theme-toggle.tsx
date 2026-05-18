@@ -5,11 +5,45 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 
+const toggleThemeClasses = {
+  light:
+    "bg-gradient-to-r from-yellow-200 via-orange-100 to-yellow-50 border-yellow-200 hover:shadow-[0_0_15px_rgba(255,223,128,0.4)]",
+  dark: "bg-gradient-to-r from-slate-800 via-gray-900 to-slate-700 border-gray-700 hover:shadow-[0_0_15px_rgba(120,180,255,0.3)]",
+  system:
+    "bg-gradient-to-r from-slate-800 via-gray-900 to-slate-700 border-gray-700 hover:shadow-[0_0_15px_rgba(120,180,255,0.3)]",
+};
+
+const shimmerClasses = {
+  light: "from-white/60 to-yellow-100/40",
+  dark: "from-blue-500/20 to-indigo-400/10",
+  system: "from-blue-500/20 to-indigo-400/10",
+};
+
+const thumbClasses = {
+  light:
+    "bg-white shadow-[inset_0_0_2px_rgba(255,255,255,0.6),_0_4px_8px_rgba(255,180,80,0.4)]",
+  dark: "bg-gray-900 shadow-[inset_0_0_3px_rgba(255,255,255,0.2),_0_4px_8px_rgba(0,0,0,0.6)]",
+  system:
+    "bg-gray-900 shadow-[inset_0_0_3px_rgba(255,255,255,0.2),_0_4px_8px_rgba(0,0,0,0.6)]",
+};
+
+function getNextTheme(theme: string) {
+  return theme === "light" ? "dark" : "light";
+}
+
+function getIconAnimation(isActive: boolean, inactiveRotate: number) {
+  return {
+    opacity: isActive ? 1 : 0,
+    scale: isActive ? 1 : 0.6,
+    rotate: isActive ? 0 : inactiveRotate,
+  };
+}
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = getNextTheme(theme);
     setTheme(newTheme);
 
     // Subtle haptic feedback
@@ -25,13 +59,9 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       role="switch"
       aria-checked={theme === "dark"}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      aria-label={`Switch to ${getNextTheme(theme)} mode`}
       className={`relative w-16 h-9 p-1 rounded-full overflow-hidden border transition-all duration-500 shadow-inner
-        ${
-          theme === "light"
-            ? "bg-gradient-to-r from-yellow-200 via-orange-100 to-yellow-50 border-yellow-200 hover:shadow-[0_0_15px_rgba(255,223,128,0.4)]"
-            : "bg-gradient-to-r from-slate-800 via-gray-900 to-slate-700 border-gray-700 hover:shadow-[0_0_15px_rgba(120,180,255,0.3)]"
-        }`}
+        ${toggleThemeClasses[theme]}`}
     >
       {/* Subtle background shimmer */}
       <motion.div
@@ -39,11 +69,7 @@ export function ThemeToggle() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.25 }}
         transition={{ duration: 0.6 }}
-        className={`absolute inset-0 rounded-full bg-gradient-to-r ${
-          theme === "light"
-            ? "from-white/60 to-yellow-100/40"
-            : "from-blue-500/20 to-indigo-400/10"
-        } blur-md`}
+        className={`absolute inset-0 rounded-full bg-gradient-to-r ${shimmerClasses[theme]} blur-md`}
       />
 
       {/* Thumb / Toggle Knob */}
@@ -54,11 +80,7 @@ export function ThemeToggle() {
           stiffness: 400,
           damping: 25,
         }}
-        className={`absolute top-1 left-1 w-7 h-7 rounded-full shadow-md transition-all duration-500 ${
-          theme === "light"
-            ? "bg-white shadow-[inset_0_0_2px_rgba(255,255,255,0.6),_0_4px_8px_rgba(255,180,80,0.4)]"
-            : "bg-gray-900 shadow-[inset_0_0_3px_rgba(255,255,255,0.2),_0_4px_8px_rgba(0,0,0,0.6)]"
-        }`}
+        className={`absolute top-1 left-1 w-7 h-7 rounded-full shadow-md transition-all duration-500 ${thumbClasses[theme]}`}
         style={{
           transform:
             theme === "dark"
@@ -73,11 +95,7 @@ export function ThemeToggle() {
       {/* Icons */}
       <div className="relative w-full flex items-center justify-between px-2">
         <motion.div
-          animate={{
-            opacity: theme === "light" ? 1 : 0,
-            scale: theme === "light" ? 1 : 0.6,
-            rotate: theme === "light" ? 0 : -90,
-          }}
+          animate={getIconAnimation(theme === "light", -90)}
           transition={{ duration: 0.4 }}
         >
           <Sun
@@ -87,11 +105,7 @@ export function ThemeToggle() {
         </motion.div>
 
         <motion.div
-          animate={{
-            opacity: theme === "dark" ? 1 : 0,
-            scale: theme === "dark" ? 1 : 0.6,
-            rotate: theme === "dark" ? 0 : 90,
-          }}
+          animate={getIconAnimation(theme === "dark", 90)}
           transition={{ duration: 0.4 }}
         >
           <Moon

@@ -8,16 +8,43 @@ const isEmailConfigured = Boolean(
   EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY
 );
 
+const emailErrorMessages = [
+  {
+    match: "Invalid template ID",
+    message:
+      "The email template could not be found. Please check the EmailJS template configuration.",
+  },
+  {
+    match: "Invalid service ID",
+    message:
+      "The email service could not be found. Please check the EmailJS service configuration.",
+  },
+  {
+    match: "Invalid user ID",
+    message:
+      "The EmailJS public key is invalid. Please verify the contact form configuration.",
+  },
+];
+
 if (isEmailConfigured) {
   emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
-export async function sendEmail(data: ContactFormValues) {
+function assertEmailConfigured() {
   if (!isEmailConfigured) {
     throw new Error(
       "The contact form is not configured yet. Please try again later."
     );
   }
+}
+
+function getEmailErrorMessage(error: Error) {
+  return emailErrorMessages.find(({ match }) => error.message.includes(match))
+    ?.message;
+}
+
+export async function sendEmail(data: ContactFormValues) {
+  assertEmailConfigured();
 
   try {
     const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
@@ -31,20 +58,10 @@ export async function sendEmail(data: ContactFormValues) {
     return response;
   } catch (error) {
     if (error instanceof Error) {
-      if (error.message.includes("Invalid template ID")) {
-        throw new Error(
-          "The email template could not be found. Please check the EmailJS template configuration."
-        );
-      }
-      if (error.message.includes("Invalid service ID")) {
-        throw new Error(
-          "The email service could not be found. Please check the EmailJS service configuration."
-        );
-      }
-      if (error.message.includes("Invalid user ID")) {
-        throw new Error(
-          "The EmailJS public key is invalid. Please verify the contact form configuration."
-        );
+      const knownError = getEmailErrorMessage(error);
+
+      if (knownError) {
+        throw new Error(knownError);
       }
     }
 

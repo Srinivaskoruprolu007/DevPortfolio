@@ -18,7 +18,45 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import {
+  useForm,
+  type ControllerRenderProps,
+  type FieldErrors,
+  type FieldPath,
+} from "react-hook-form";
+
+type ContactFieldName = FieldPath<ContactFormValues>;
+
+type ContactInputFieldProps = {
+  autoComplete?: string;
+  disabled: boolean;
+  errors: FieldErrors<ContactFormValues>;
+  field: ControllerRenderProps<ContactFormValues, ContactFieldName>;
+  id: string;
+  label: string;
+  name: ContactFieldName;
+  placeholder: string;
+  type?: string;
+};
+
+type ContactTextareaFieldProps = Omit<
+  ContactInputFieldProps,
+  "autoComplete" | "type"
+> & {
+  helpText: string;
+  helpTextId: string;
+};
+
+const FIELD_ERROR_CLASS =
+  "flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive";
+
+function getEnhancedInputClassName(hasError: boolean, baseClassName: string) {
+  return `${baseClassName} transition-all duration-300 input-enhanced ${
+    hasError
+      ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
+      : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+  }`;
+}
 
 export function ContactForm() {
   const { toast } = useToast();
@@ -83,44 +121,16 @@ export function ContactForm() {
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel htmlFor="contact-name" className="text-base font-semibold">
-                  Full name
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    id="contact-name"
-                    autoComplete="name"
-                    placeholder="Your full name"
-                    className={`h-12 text-base transition-all duration-300 input-enhanced ${
-                      form.formState.errors.name
-                        ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
-                        : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
-                    }`}
-                    aria-describedby={
-                      form.formState.errors.name ? "name-error" : undefined
-                    }
-                    aria-invalid={!!form.formState.errors.name}
-                    disabled={isSubmitting}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage
-                  id="name-error"
-                  role="alert"
-                  className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
-                >
-                  {form.formState.errors.name && (
-                    <>
-                      <AlertCircle
-                        className="h-4 w-4 flex-shrink-0 text-destructive"
-                        aria-hidden="true"
-                      />
-                      <span>{form.formState.errors.name.message}</span>
-                    </>
-                  )}
-                </FormMessage>
-              </FormItem>
+              <ContactInputField
+                autoComplete="name"
+                disabled={isSubmitting}
+                errors={form.formState.errors}
+                field={field}
+                id="contact-name"
+                label="Full name"
+                name="name"
+                placeholder="Your full name"
+              />
             )}
           />
 
@@ -128,45 +138,17 @@ export function ContactForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel htmlFor="contact-email" className="text-base font-semibold">
-                  Email address
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    id="contact-email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="you@company.com"
-                    className={`h-12 text-base transition-all duration-300 input-enhanced ${
-                      form.formState.errors.email
-                        ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
-                        : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
-                    }`}
-                    aria-describedby={
-                      form.formState.errors.email ? "email-error" : undefined
-                    }
-                    aria-invalid={!!form.formState.errors.email}
-                    disabled={isSubmitting}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage
-                  id="email-error"
-                  role="alert"
-                  className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
-                >
-                  {form.formState.errors.email && (
-                    <>
-                      <AlertCircle
-                        className="h-4 w-4 flex-shrink-0 text-destructive"
-                        aria-hidden="true"
-                      />
-                      <span>{form.formState.errors.email.message}</span>
-                    </>
-                  )}
-                </FormMessage>
-              </FormItem>
+              <ContactInputField
+                autoComplete="email"
+                disabled={isSubmitting}
+                errors={form.formState.errors}
+                field={field}
+                id="contact-email"
+                label="Email address"
+                name="email"
+                placeholder="you@company.com"
+                type="email"
+              />
             )}
           />
 
@@ -174,88 +156,167 @@ export function ContactForm() {
             control={form.control}
             name="message"
             render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel htmlFor="contact-message" className="text-base font-semibold">
-                  Message
-                </FormLabel>
-                <FormControl>
-                  <Textarea
-                    id="contact-message"
-                    placeholder="Tell me about the product, timeline, or problem you want solved."
-                    className={`min-h-[160px] resize-y text-base transition-all duration-300 input-enhanced ${
-                      form.formState.errors.message
-                        ? "border-destructive focus:border-destructive focus:ring-destructive shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
-                        : "hover:border-primary/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
-                    }`}
-                    aria-describedby={
-                      form.formState.errors.message
-                        ? "message-error"
-                        : "message-help"
-                    }
-                    aria-invalid={!!form.formState.errors.message}
-                    disabled={isSubmitting}
-                    {...field}
-                  />
-                </FormControl>
-                <div id="message-help" className="text-sm text-muted-foreground">
-                  Minimum 10 characters required
-                </div>
-                <FormMessage
-                  id="message-error"
-                  role="alert"
-                  className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
-                >
-                  {form.formState.errors.message && (
-                    <>
-                      <AlertCircle
-                        className="h-4 w-4 flex-shrink-0 text-destructive"
-                        aria-hidden="true"
-                      />
-                      <span>{form.formState.errors.message.message}</span>
-                    </>
-                  )}
-                </FormMessage>
-              </FormItem>
+              <ContactTextareaField
+                disabled={isSubmitting}
+                errors={form.formState.errors}
+                field={field}
+                helpText="Minimum 10 characters required"
+                helpTextId="message-help"
+                id="contact-message"
+                label="Message"
+                name="message"
+                placeholder="Tell me about the product, timeline, or problem you want solved."
+              />
             )}
           />
 
-          <div className="pt-4">
-            <Button
-              type="submit"
-              className="btn-gradient h-14 w-full text-lg font-semibold shadow-custom-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-custom-xl disabled:hover:scale-100"
-              disabled={isSubmitting}
-              aria-describedby="submit-help"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2
-                    className="mr-3 h-5 w-5 animate-spin"
-                    aria-hidden="true"
-                  />
-                  <span className="animate-pulse">Sending message...</span>
-                </>
-              ) : (
-                <span>Send message</span>
-              )}
-            </Button>
+          <ContactSubmitSection isSubmitting={isSubmitting} />
 
-            <p
-              id="submit-help"
-              className="mt-4 text-center text-sm text-muted-foreground"
-            >
-              I typically respond within one business day.
-            </p>
-          </div>
-
-          {form.formState.isSubmitSuccessful && !isSubmitting && (
-            <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center dark:border-green-800 dark:bg-green-900/20">
-              <p className="font-medium text-green-700 dark:text-green-300">
-                Thank you. Your message has been sent successfully.
-              </p>
-            </div>
-          )}
+          <ContactSuccessMessage
+            isVisible={form.formState.isSubmitSuccessful && !isSubmitting}
+          />
         </form>
       </Form>
+    </div>
+  );
+}
+
+function ContactInputField({
+  autoComplete,
+  disabled,
+  errors,
+  field,
+  id,
+  label,
+  name,
+  placeholder,
+  type,
+}: ContactInputFieldProps) {
+  const error = errors[name];
+  const errorId = `${name}-error`;
+
+  return (
+    <FormItem className="space-y-3">
+      <FormLabel htmlFor={id} className="text-base font-semibold">
+        {label}
+      </FormLabel>
+      <FormControl>
+        <Input
+          id={id}
+          type={type}
+          autoComplete={autoComplete}
+          placeholder={placeholder}
+          className={getEnhancedInputClassName(!!error, "h-12 text-base")}
+          aria-describedby={error ? errorId : undefined}
+          aria-invalid={!!error}
+          disabled={disabled}
+          {...field}
+        />
+      </FormControl>
+      <ContactFieldError id={errorId} message={error?.message} />
+    </FormItem>
+  );
+}
+
+function ContactTextareaField({
+  disabled,
+  errors,
+  field,
+  helpText,
+  helpTextId,
+  id,
+  label,
+  name,
+  placeholder,
+}: ContactTextareaFieldProps) {
+  const error = errors[name];
+  const errorId = `${name}-error`;
+
+  return (
+    <FormItem className="space-y-3">
+      <FormLabel htmlFor={id} className="text-base font-semibold">
+        {label}
+      </FormLabel>
+      <FormControl>
+        <Textarea
+          id={id}
+          placeholder={placeholder}
+          className={getEnhancedInputClassName(
+            !!error,
+            "min-h-[160px] resize-y text-base"
+          )}
+          aria-describedby={error ? errorId : helpTextId}
+          aria-invalid={!!error}
+          disabled={disabled}
+          {...field}
+        />
+      </FormControl>
+      <div id={helpTextId} className="text-sm text-muted-foreground">
+        {helpText}
+      </div>
+      <ContactFieldError id={errorId} message={error?.message} />
+    </FormItem>
+  );
+}
+
+function ContactFieldError({
+  id,
+  message,
+}: {
+  id: string;
+  message: unknown;
+}) {
+  return (
+    <FormMessage id={id} role="alert" className={FIELD_ERROR_CLASS}>
+      {message ? (
+        <>
+          <AlertCircle
+            className="h-4 w-4 flex-shrink-0 text-destructive"
+            aria-hidden="true"
+          />
+          <span>{String(message)}</span>
+        </>
+      ) : null}
+    </FormMessage>
+  );
+}
+
+function ContactSubmitSection({ isSubmitting }: { isSubmitting: boolean }) {
+  return (
+    <div className="pt-4">
+      <Button
+        type="submit"
+        className="btn-gradient h-14 w-full text-lg font-semibold shadow-custom-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-custom-xl disabled:hover:scale-100"
+        disabled={isSubmitting}
+        aria-describedby="submit-help"
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-3 h-5 w-5 animate-spin" aria-hidden="true" />
+            <span className="animate-pulse">Sending message...</span>
+          </>
+        ) : (
+          <span>Send message</span>
+        )}
+      </Button>
+
+      <p id="submit-help" className="mt-4 text-center text-sm text-muted-foreground">
+        I typically respond within one business day.
+      </p>
+    </div>
+  );
+}
+
+function ContactSuccessMessage({ isVisible }: { isVisible: boolean }) {
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-center dark:border-green-800 dark:bg-green-900/20">
+      <p className="font-medium text-green-700 dark:text-green-300">
+        Thank you. Your message has been sent successfully.
+      </p>
     </div>
   );
 }

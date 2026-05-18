@@ -17,53 +17,6 @@ export const profile = {
     "https://drive.google.com/uc?export=download&id=1kEaf8n7ritBl3SIr2CvRlgkgBSwFr4Ya",
 };
 
-export const heroStats = [
-  { value: "3+", label: "Years shipping production software" },
-  { value: "50+", label: "Enterprise and citizen-facing services supported" },
-  { value: "95+", label: "Lighthouse scores on recent launches" },
-];
-
-export const focusAreas = [
-  "React and Next.js user interfaces",
-  "TypeScript APIs, data flows, and platform integrations",
-  "Performance, accessibility, and developer experience",
-];
-
-export const aboutHighlights = [
-  {
-    title: "Enterprise delivery",
-    description:
-      "Built and maintained production features for large-scale government and enterprise platforms with reliability requirements.",
-  },
-  {
-    title: "Full-stack ownership",
-    description:
-      "Comfortable moving from interaction design and component architecture to backend APIs, data modeling, and release workflows.",
-  },
-  {
-    title: "Performance mindset",
-    description:
-      "Prioritize clean code, measurable outcomes, and UX details that keep products fast, stable, and easy to evolve.",
-  },
-];
-
-export const contactHighlights = [
-  {
-    title: "Best fit",
-    description:
-      "Product teams that need strong execution across frontend systems, APIs, and delivery quality.",
-  },
-  {
-    title: "Response time",
-    description: "I usually reply within one business day.",
-  },
-  {
-    title: "Collaboration",
-    description:
-      "Comfortable working with distributed teams across product, design, and engineering.",
-  },
-];
-
 export const skills = {
   frontend: [
     { name: "React 19", level: 95 },
